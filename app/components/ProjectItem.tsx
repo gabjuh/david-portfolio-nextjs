@@ -28,7 +28,7 @@ const friendlyFileName = convertStringToUrlFriendly(fileName ?? '');
               <Image 
                 src={fileName ? `https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/${friendlyFileName}` : ''}
                 alt="Project Image" 
-                className="!w-[300px]" 
+                className="!w-[300px] mx-auto" 
                 width="200"
                 height="120"
               />
