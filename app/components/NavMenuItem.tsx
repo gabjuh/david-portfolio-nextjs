@@ -1,5 +1,3 @@
-'use client'
-
 import INavMenuItem from "@/interfaces/INavMenuItem";
 import Link from "next/link";
 
@@ -8,15 +6,17 @@ const NavMenuItem: React.FC<INavMenuItem> = ({
   title,
   link,
   selected,
-  handleClick,
-  isDropdown
+  isDropdown,
+  handleMenuItemClick
 }) => {
+
   return (
     <li className={isDropdown && selected ? `bg-secondary` : ''}>
       <Link
-        href={link}
-        className={`block hover:bg-base-200 focus:bg-secondary ${selected ? 'bg-secondary text-white focus:text-white active:text-white' : 'text-gray-700'}`}
-        onClick={(e) => handleClick(e, link)}
+        href={"/" + link}
+        className={`menuButton ${selected ? 'bg-secondary text-white focus:text-white !focus:gb-secondary ' : 'text-gray-700'}`}
+        id={link}
+        onClick={handleMenuItemClick}
       >
         {title}
       </Link>

@@ -1,13 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useContext, MouseEventHandler } from "react";
+import React, { useState, useEffect, MouseEventHandler } from "react";
 import INav from "@/interfaces/INav";
 import NavMenuItem from "./NavMenuItem";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
-import scrollToId from "@/helpers/scrollToId";
-import Envelope from "@/assets/icos/Envelope";
 
 const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
 
@@ -17,34 +13,9 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
 
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>('');
 
-  const router = useRouter();
-
-  const pathname = usePathname();
-
-  const handleClick = (event: any, link: string) => {
-    event.preventDefault();
-
-    // If we are in another page than the home page, we need to navigate to the home page first
-    if (pathname !== '/') {
-      router.push('/');
-      // const interval = setTimeout(() => {
-      scrollToId(link);
-      // }, 400);
-      // return () => clearInterval(interval);
-    } else {
-      scrollToId(link);
-    }
-
-    setSelectedMenuItem(link);
+  const handleMenuItemClick = (e: any) => {
+    setSelectedMenuItem(e.target.id);
   };
-
-  const handleMouseLeave = (event: any) => {
-    handleHideMenu();
-  };
-
-  const handleHideMenu = () => {
-    document.getElementById("dropdown-menu-details")?.removeAttribute("open");
-  }
 
   return (
     <>
@@ -63,7 +34,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
                   title={item.titleDe}
                   link={item.link}
                   selected={selectedMenuItem === item.link}
-                  handleClick={handleClick}
+                  handleMenuItemClick={handleMenuItemClick}
                 />
               ))}
             </ul>
@@ -73,6 +44,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
             <Link
               href="/"
               className="btn btn-ghost normal-case text-xl"
+              onClick={() => setSelectedMenuItem('')}
               // onClick={() => handleClick(-1)}
             >{settings.homepageTitle}</Link>
           </div>
@@ -87,7 +59,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
                 title={item.titleDe}
                 link={item.link}
                 selected={selectedMenuItem === item.link}
-                handleClick={handleClick}
+                handleMenuItemClick={handleMenuItemClick}
               />
             ))}
           </ul>
