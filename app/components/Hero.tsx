@@ -26,7 +26,7 @@ export default async function Hero({ data }: { data: IData; }) {
           imgUrl={`https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/${hero[0].fileName}`}
         /> */}
 
-        <Image
+        {/* <Image
           // src={`https://api.franciskahajdu.de/img/thumbnails/${getFilenameWithThumbnails()}`}
           // blurDataURL={`https://api.franciskahajdu.de/img/thumbnails/${getFilenameWithThumbnails()}`}
           src={`https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/${hero[0].fileName}`}
@@ -42,7 +42,7 @@ export default async function Hero({ data }: { data: IData; }) {
             objectPosition: 'right',
           }}
         />
-        <UpcomingEvents data={data.concerts} />
+        <UpcomingEvents data={data.concerts} /> */}
       </div>
     </>
 

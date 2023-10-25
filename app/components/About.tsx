@@ -7,7 +7,7 @@ const About = ({ data } : {data: IData}) => {
     <div className="mb-36">
       {/* <Title title={data.about[0].pageTitle} id="about-me" /> */}
 
-      <ImageAndText
+      {/* <ImageAndText
         title={data.about[0].pageTitle}
         driveId={data.about[0].driveId}
         fileName={data.about[0].fileName}
@@ -17,7 +17,7 @@ const About = ({ data } : {data: IData}) => {
         text={data.about[0].textDe}
         textAlign={data.about[0].textAlign}
         buttonText={data.about[0].buttonText}
-      />
+      /> */}
 
     </div>
   )
