@@ -5,7 +5,7 @@ const Title: React.FC<ITitle> = ({ title, className, id }) => {
   return (
     <div
       id={id ? id : 'asd'}
-      className={`text-2xl font-semibold pt-20 md:mb-2 mb-0 text-center ${className ?? ''}`}
+      className={`text-2xl font-semibold mt-5 mb-8 ${className ?? ''}`}
     >
       {title}
     </div>
