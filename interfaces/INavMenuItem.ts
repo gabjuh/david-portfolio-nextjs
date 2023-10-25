@@ -3,7 +3,6 @@ export default interface INavMenuItem {
   title: string;
   link: string;
   selected?: boolean;
-  handleClick: (event: any, link: string) => void;
   isDropdown?: boolean;
-  // handleClick: () => void;
+  handleMenuItemClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
