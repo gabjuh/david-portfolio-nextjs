@@ -45,26 +45,6 @@ export default async function HomePage() {
           {data.biography[0].buttonText}
         </Link>
       </p>
-      
-
-      {/* <div className="mt-12">
-        <Image
-          className="drop-shadow-xl lg:max-w-[400px] w-full mx-auto rounded-md"
-          src={`${apiUrl}/img/${convertStringToUrlFriendly(data.biography[0].fileName)}`}
-          alt={data.biography[0].imgAlt}
-          width={400}
-          height={200}
-        />
-      </div>
-      <div className="w-full mt-10 text-center">
-        <Link
-          href="/biography"
-          className="btn btn-secondary text-white"
-          // onClick={() => handleClick(0)}
-        >
-          {data.home[0].buttonText}
-        </Link>
-      </div> */}
     </main>
   )
 }

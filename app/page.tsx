@@ -28,6 +28,7 @@ export default async function HomePage() {
           alt={data.biography[0].imgAlt}
           width={400}
           height={200}
+          priority={true}
         />
       </div>
       <div className="w-full mt-10 text-center">
