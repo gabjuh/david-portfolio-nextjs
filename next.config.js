@@ -4,13 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'api-franciskahajdu.web4musicians.eu',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'discography-franciskahajdu.web4musicians.eu',
+        hostname: 'api-davidbudai.web4musicians.eu',
         port: '',
         pathname: '/**',
       },
