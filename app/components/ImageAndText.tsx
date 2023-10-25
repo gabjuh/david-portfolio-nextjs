@@ -21,10 +21,10 @@ const ImageAndText: React.FC<IImageAndText> = ({
 
   return (
     <>
-     <div className={`flex ${imageLeft ? 'flex-col' : 'flex-col-reverse'} md:flex-row my-28`}>
+      <div className={`flex ${imageLeft ? 'flex-col' : 'flex-col-reverse'} md:flex-row my-20`}>
         {imageLeft && <ImageForText fileName={fileName || ''} alt={alt || 'image'} classNameForImg={classNameForImg} driveId={""} />}
-        <div className={`w-full md:w-1/2 flex flex-col ${!imageLeft ? 'items-end' : ''} justify-center`}>
-          <div className={`${imageLeft ? `${isJustified ? 'md:text-justify' : 'md:text-left'} md:ml-8 lg:ml-0` : `${isJustified ? 'md:text-justify' : 'md:text-right'} md:mr-8 lg:mr-0`} ${imageLeft !== undefined ? 'md:text-justify' : ''} text-center leading-8`}>
+        <div className={`w-full md:w-[60%] flex flex-col ${!imageLeft ? 'items-end' : ''} justify-center`}>
+          <div className={`${imageLeft ? `${isJustified ? 'md:text-justify' : 'md:text-left'} md:ml-0 lg:ml-5` : `${isJustified ? 'md:text-justify' : 'md:text-right'} md:mr-0 lg:mr-5`} ${imageLeft !== undefined ? 'md:text-justify' : ''} text-center leading-8`}>
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               children={text ? text : ''}
