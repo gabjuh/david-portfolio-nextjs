@@ -20,7 +20,7 @@ const ImageForText: React.FC<IImageForText> = ({
             width: '380px',
             height: 'auto',
           }}
-          className={`${classNameForImg} mx-auto mb-6 lg:mb-0`} 
+          className={`${classNameForImg} mx-auto mb-6 lg:mb-0 rounded-md drop-shadow-xl`} 
         />
       </div>
     </>
