@@ -37,13 +37,13 @@ export default async function RootLayout({
     // <html lang="en" data-theme="dark">
     // <ParallaxProvider>
     <html lang="en" data-theme="corporate">
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-[100vh] relative pb-[112px]`}>
         <Nav data={[
           data.menuItems,
           data.settings
         ]} />
         {children}
-        {/* <Footer data={data.settings} timeStamp={data.timeStamp} /> */}
+        <Footer data={data.settings} timeStamp={data.timeStamp} />
       </body>
     </html>
     // </ParallaxProvider>
