@@ -5,7 +5,8 @@ export default interface IProjects {
   id: number;
   projectTitle?: string;
   mediaType?: 'image' | 'video';
-  youtubeId?: string;
+  youtubeLink?: string;
+  fileName?: string;
   driveId?: string;
   imgAlt?: string;
   text?: string;

@@ -1,5 +1,7 @@
 export default interface IHome {
   sheetId: string;
   pageTitle: string;
-  widgets: string;  
+  fileName: string;
+  imgAlt: string;
+  buttonText: string;
 } 
