@@ -4,10 +4,12 @@ export default interface IEvents {
   active?: string;
   id: string;
   title?: string;
-  category?: string;
+  category: string;
   startDate: string;
   endDate?: string;
   startTime?: string;
+  country?: string;
+  city?: string;
   location?: string;
   locationLink?: string;
   band?: string;

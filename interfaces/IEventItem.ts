@@ -4,6 +4,8 @@ export default interface IEventItem {
   startDate: string;
   endDate?: string;
   startTime?: string;
+  country?: string;
+  city?: string;
   location?: string;
   locationLink?: string;
   band?: string;
