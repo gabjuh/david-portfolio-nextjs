@@ -9,18 +9,18 @@ const ImageForText: React.FC<IImageForText> = ({
 }) => {
   return (
     <>
-      <div className="w-full lg:w-1/2">
-        <Image 
+      <div className="w-full lg:w-[40%]">
+        <Image
           src={`https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/${fileName}`}
           // placeholder="blur"
           width="400"
           height="200"
-          alt={alt} 
+          alt={alt}
           style={{
             width: '380px',
             height: 'auto',
           }}
-          className={`${classNameForImg} mx-auto mb-6 lg:mb-0 rounded-md drop-shadow-xl`} 
+          className={`${classNameForImg} mx-auto mb-6 lg:mb-0 rounded-md drop-shadow-xl`}
         />
       </div>
     </>
