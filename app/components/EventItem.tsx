@@ -9,6 +9,8 @@ const EventItem: React.FC<IEventItem> = ({
   startDate,
   endDate,
   startTime,
+  country,
+  city,
   location,
   locationLink,
   band,
@@ -62,7 +64,7 @@ const EventItem: React.FC<IEventItem> = ({
                   <div className="text-[2.7rem] font-extrabold leading-[2.5rem]">
                     {getDay(startDate)}
                   </div>
-                  <div className="text-[1.3rem]">
+                  <div className="text-[1.3rem] -mb-1">
                     {getNameOfMonth(startDate)}
                   </div>
                   {/* Time */}
@@ -78,7 +80,7 @@ const EventItem: React.FC<IEventItem> = ({
                       {getDayOfWeek(endDate)}
                     </div>
                     <div className="text-[1.9rem] font-extrabold leading-[1.7rem] text-right whitespace-nowrap">
-                      <span className="mr-[4px]">-</span>{getDay(endDate)}
+                      <span className="mr-[20px]">-</span>{getDay(endDate)}
                     </div>
                     <div className="text-[1rem] text-right">
                       {getNameOfMonth(endDate) == getNameOfMonth(startDate) ? '' : getNameOfMonth(endDate)}
@@ -89,12 +91,13 @@ const EventItem: React.FC<IEventItem> = ({
           </div>
 
           {/* TEXTS */}
-          <div className="sm:ml-6 py-4 lg:ml-[150px] sm:text-left text-center max-w-[900px]">
+          <div className="sm:ml-6 py-0 lg:ml-[150px] sm:text-left text-center max-w-[900px]">
+
             {/* Band and Title */}
-            <h3 className={`text-4xl uppercase font-semibold ${isPast ? 'border-gray-400' : 'border-primary'} border-b-[5px] sm:border-none pb-2`}>{title}</h3>
-            <h3 className="text-2xl font-semibold sm:mb-0 mb-2 mt-2">
+            <h3 className={`text-[1.7rem] uppercase font-semibold mt-1 ${isPast ? 'border-gray-400' : 'border-primary'} border-b-[5px] sm:border-none`}>{title}</h3>
+            <h3 className="text-[1.3rem] sm:mb-0">
               {!bandLink ? band :
-                <a className="text-secondary font-semibold hover:underline" href={bandLink} target="_blank">{band}</a>
+                <a className="text-secondary font-semibold hover:underline mt-1" href={bandLink} target="_blank">{band}</a>
               }
             </h3>
 
@@ -112,9 +115,9 @@ const EventItem: React.FC<IEventItem> = ({
                 <div className="relative h-[1.6rem] my-2.5 sm:mt-0 sm:hidden">
                   <div className="absolute left-[50%] -translate-x-[50%] sm:left-0 sm:translate-x-0">
                     {/* <div className="flex">
-                      <div className="translate-y-[1px]">
-                        <ClockIco />
-                      </div> */}
+                    <div className="translate-y-[1px]">
+                      <ClockIco />
+                    </div> */}
                     <span className="text-2xl">{startTime}</span>
                     {/* </div> */}
                   </div>
@@ -122,35 +125,33 @@ const EventItem: React.FC<IEventItem> = ({
               }
 
               {/* Location */}
-              {location &&
-                <div className="min-h-[2rem] font-extralight mt-4 mb-5 mx-auto">
-                  <div className="inine-block">
-                    <div className="">
-                      {!locationLink ?
+              <div className="min-h-[2rem] font-extralight mx-auto">
+                <div className="inine-block">
+                  <div className="">
+                    {!locationLink ?
 
-                        // Text only
-                        <>
-                          <div className="inline-block translate-y-[5px]">
-                            <MapIco />
-                          </div>
-                          <span className="text-2xl ml-3">{location}</span>
-                        </>
-                        :
+                      // Text only
+                      <>
+                        <div className="inline-block translate-y-[5px]">
+                          <MapIco />
+                        </div>
+                        <span className="text-[1rem] ml-3"><span className="font-normal">{city}</span>{location ? ', ' + location : ''} {country !== 'Deutschland' ? `(${country})` : ''}</span>
+                      </>
+                      :
 
-                        // Link
-                        <>
-                          <div className="inline-block translate-y-[5px]">
-                            <MapIco />
-                          </div>
-                          <a href={locationLink} target="_blank" className="text-2xl text-secondary hover:underline translate-y-[5px]">
-                            <span className="ml-3">{location}</span>
-                          </a>
-                        </>
-                      }
-                    </div>
+                      // Link
+                      <>
+                        <div className="inline-block translate-y-[5px]">
+                          <MapIco />
+                        </div>
+                        <a href={locationLink} target="_blank" className="text-[1rem] text-secondary hover:underline translate-y-[5px]">
+                          <span className="ml-3"><span className="font-normal">{city}</span>{location ? ', ' + location : ''} {country !== 'Deutschland' ? `(${country})` : ''}</span>
+                        </a>
+                      </>
+                    }
                   </div>
                 </div>
-              }
+              </div>
             </div>
 
             {/* Article */}
@@ -165,7 +166,7 @@ const EventItem: React.FC<IEventItem> = ({
             }
 
             {/* Category */}
-            <div className={`badge text-sm ${isPast ? 'bg-gray-400 border-gray-400' : 'badge-primary'} rounded-full font-semibold`}>{category}</div>
+            <div className={`badge text-sm ${isPast ? 'bg-gray-400 border-gray-400' : 'badge-primary'} rounded-full text-white`}>{category}</div>
           </div>
         </div>
       </div>
