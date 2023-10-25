@@ -12,3 +12,7 @@
 .menu {
   flex-wrap: nowrap!important;
 }
+.menuButton:focus {
+  background-color: hsl(var(--sf) / var(--tw-bg-opacity)) !important;
+  color: white !important;
+}
