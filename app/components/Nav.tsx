@@ -93,7 +93,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className={`md:tooltip md:tooltip-sm ${isTooltipOpen ? `md:tooltip-open` : ''} md:tooltip-bottom`} data-tip={settings.emailTooltipTextDe}>
+          <div className={`md:tooltip md:tooltip-sm mx-0 ${isTooltipOpen ? `md:tooltip-open` : ''} md:tooltip-left`} data-tip={settings.emailTooltipTextDe}>
           <a href={`mailto:${settings.email}`} className="btn btn-secondary text-white">@</a>
           </div>
         </div>
