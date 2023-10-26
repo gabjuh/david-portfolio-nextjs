@@ -33,21 +33,33 @@ const FilterEvents: React.FC<IFilterEvents> = ({
       {/* Time block */}
       <span className="mr-5">Zeitraum: </span>
       <button
-        className={`btn btn-xs btn-outline rounded-lg font-normal mr-2 ${selectedTimeBlock === 'coming' ? 'ml-[50px]' : ''}}`}
+        className={`btn btn-xs btn-outline rounded-lg font-normal mr-2 }`}
+        style={{
+          backgroundColor: selectedTimeBlock === 'coming' ? '#666' : '',
+          color: selectedTimeBlock === 'coming' ? '#fff' : ''
+        }}
         value="coming"
         onClick={(handleTimeBlockButtonClick)}
       >
         Kommende ({nrOfTimeBlockEvents[0]})
       </button>
       <button
-        className={`btn btn-xs btn-outline rounded-lg font-normal mr-2 ${selectedTimeBlock === 'past' ? 'btn-success' : ''}}`}
+        className={`btn btn-xs btn-outline rounded-lg font-normal mr-2 }`}
+        style={{
+          backgroundColor: selectedTimeBlock === 'past' ? '#666' : '',
+          color: selectedTimeBlock === 'past' ? '#fff' : ''
+        }}
         value="past"
         onClick={handleTimeBlockButtonClick}
       >
         Vergangene ({nrOfTimeBlockEvents[1]})
       </button>
       <button
-        className={`btn btn-xs btn-outline rounded-lg font-normal mr-2 ${selectedTimeBlock === 'archiv' ? 'btn-success' : ''}}`}
+        className={`btn btn-xs btn-outline rounded-lg font-normal mr-2 }`}
+        style={{
+          backgroundColor: selectedTimeBlock === 'archive' ? '#666' : '',
+          color: selectedTimeBlock === 'archive' ? '#fff' : ''
+        }}
         value="archive"
         onClick={handleTimeBlockButtonClick}
       >
