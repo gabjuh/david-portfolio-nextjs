@@ -14,8 +14,13 @@ const Events: React.FC<IEventsComponent> = ({ data }) => {
   const [comingEvents, setComingEvents] = useState<IEvents[]>([]);
   const [pastEvents, setPastEvents] = useState<IEvents[]>([]);
   const [archivedEvents, setArchivedEvents] = useState<IEvents[]>([]);
+
   const [eventTypes, setEventTypes] = useState<string[]>();
   const [selectedType, setSelectedType] = useState<string>('Alle');
+
+  const [eventCities, setEventCities] = useState<string[]>();
+  const [selectedCity, setSelectedCity] = useState<string>('Alle');
+
   const [selectedTimeBlock, setSelectedTimeBlock] = useState<string>('coming');
   const [selectedEvents, setSelectedEvents] = useState<IEvents[]>(); // The events that are currently selected
 
@@ -51,7 +56,12 @@ const Events: React.FC<IEventsComponent> = ({ data }) => {
       ? upcomingEvents // No filter, all events
       : upcomingEvents.filter((event) => event.category.trim() === selectedType);
 
-    setComingEvents(filteredEvents);
+    // Filter the upcoming events by city
+    const filteredCityEvents = selectedCity === 'Alle'
+      ? filteredEvents // No filter, all events
+      : filteredEvents.filter((event) => event.city && event.city.trim() === selectedCity);
+
+    setComingEvents(filteredCityEvents);
   };
 
   const getPastEvents = () => {
@@ -74,7 +84,12 @@ const Events: React.FC<IEventsComponent> = ({ data }) => {
       ? pastEvents // No filter, all events
       : pastEvents.filter((event) => event.category.trim() === selectedType);
 
-    setPastEvents(filteredEvents);
+    const filteredCityEvents = selectedCity === 'Alle'
+      ? filteredEvents // No filter, all events
+      : filteredEvents.filter((event) => event.city && event.city.trim() === selectedCity);
+
+    console.log(filteredCityEvents);
+    setPastEvents(filteredCityEvents);
   };
 
   const getArchivedEvents = () => {
@@ -97,7 +112,11 @@ const Events: React.FC<IEventsComponent> = ({ data }) => {
       ? archivedEvents // No filter, all events
       : archivedEvents.filter((event) => event.category.trim() === selectedType);
 
-    setArchivedEvents(filteredEvents);
+    const filteredCityEvents = selectedCity === 'Alle'
+      ? filteredEvents // No filter, all events
+      : filteredEvents.filter((event) => event.city && event.city.trim() === selectedCity);
+
+    setArchivedEvents(filteredCityEvents);
   };
 
   const getEventTypes = () => {
@@ -113,18 +132,36 @@ const Events: React.FC<IEventsComponent> = ({ data }) => {
     setEventTypes(types.sort()); // Sort the array alphabetically
   };
 
+  const getEventCities = () => {
+    const cities: string[] = [];
+    data.events.map((event) => {
+      if (event.active === '1' && event.city) {
+        const city: string = event.city.trim(); // Remove the white spaces from the city
+        if (!cities.includes(city)) {
+          cities.push(city); // Add the city to the array if it's not already there
+        }
+      }
+    });
+    setEventCities(cities.sort()); // Sort the array alphabetically
+  }
+
   useEffect((() => {
+    // Get the events
     getUpcomingEvents();
     getPastEvents();
     getArchivedEvents();
+
+    // Get the event types and cities
     getEventTypes();
+    getEventCities();
   }), []);
 
   useEffect(() => {
+    // Get the events again when the selected type changes
     getUpcomingEvents();
     getPastEvents();
     getArchivedEvents();
-  }, [selectedType]);
+  }, [selectedType, selectedCity]);
 
   useEffect(() => {
     switch (selectedTimeBlock) {
@@ -160,6 +197,9 @@ const Events: React.FC<IEventsComponent> = ({ data }) => {
         eventTypes={eventTypes}
         selectedType={selectedType}
         setSelectedType={setSelectedType}
+        eventCities={eventCities}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
         setSelectedTimeBlock={setSelectedTimeBlock}
         selectedTimeBlock={selectedTimeBlock}
         nrOfTimeBlockEvents={[comingEvents?.length, pastEvents?.length, archivedEvents?.length]}

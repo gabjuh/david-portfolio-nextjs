@@ -6,6 +6,9 @@ const FilterEvents: React.FC<IFilterEvents> = ({
   eventTypes,
   selectedType,
   setSelectedType,
+  eventCities,
+  selectedCity,
+  setSelectedCity,
   setSelectedTimeBlock,
   selectedTimeBlock,
   nrOfTimeBlockEvents
@@ -15,6 +18,10 @@ const FilterEvents: React.FC<IFilterEvents> = ({
     setSelectedType(e.target.value);
   };
 
+  const handleCityChange = (e: any) => {
+    setSelectedCity(e.target.value);
+  }
+  
   const handleTimeBlockButtonClick = (e: any) => {
     setSelectedTimeBlock(e.target.value);
   };
@@ -61,8 +68,24 @@ const FilterEvents: React.FC<IFilterEvents> = ({
         {eventTypes && eventTypes?.map((eventType, index) => (
           <option value={eventType} key={`eventType-${index}`}>{eventType}</option>
         ))}
-
       </select>
+
+      {/* City */}
+      <span className="mr-5 ml-5">Ort:</span>
+      <select
+        className="min-w-[100px] text-center bg-white rounded h-[1.4rem] font-normal"
+        onChange={handleCityChange}
+      >
+
+        {eventCities && eventCities?.length > 1 ?
+          <option value="Alle">Alle</option> :
+          <option disabled>empty</option>}
+
+        {eventCities && eventCities?.map((eventCity, index) => (
+          <option value={eventCity} key={`eventCity-${index}`}>{eventCity}</option>
+        ))}
+      </select>
+      
     </div>
   );
 };
