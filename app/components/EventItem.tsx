@@ -96,7 +96,8 @@ const EventItem: React.FC<IEventItem> = ({
             {/* Band and Title */}
             <h3 className={`text-[1.7rem] uppercase font-semibold mt-1 ${isPast ? 'border-gray-400' : 'border-primary'} border-b-[5px] sm:border-none`}>{title}</h3>
             <h3 className="text-[1.3rem] sm:mb-0">
-              {!bandLink ? band :
+              {!bandLink ? 
+                <p className="font-semibold">{band}</p> :
                 <a className="text-secondary font-semibold hover:underline mt-1" href={bandLink} target="_blank">{band}</a>
               }
             </h3>
@@ -125,7 +126,7 @@ const EventItem: React.FC<IEventItem> = ({
               }
 
               {/* Location */}
-              <div className="min-h-[2rem] font-extralight mx-auto">
+              <div className="min-h-[2rem] font-light mx-auto">
                 <div className="inine-block">
                   <div className="">
                     {!locationLink ?
