@@ -24,19 +24,21 @@ export default async function HomePage() {
       <Title title={data.projects[0].pageTitle} />
 
       {data.projects.map((item, index) => {
-        return (
-          <ProjectItem
-            key={index}
-            title={item.projectTitle}
-            mediaType={item.mediaType}
-            youtubeId={item.youtubeLink}
-            driveId={item.driveId}
-            fileName={item.fileName}
-            imgAlt={item.imgAlt}
-            loaded={true}
-            text={item.text}
-          />
-        );
+        if (item.active === '1') {
+          return (
+            <ProjectItem
+              key={index}
+              title={item.projectTitle}
+              mediaType={item.mediaType}
+              youtubeId={item.youtubeLink}
+              driveId={item.driveId}
+              fileName={item.fileName}
+              imgAlt={item.imgAlt}
+              loaded={true}
+              text={item.text}
+            />
+          );
+        }
       })}
 
     </main>
