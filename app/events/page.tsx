@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import IData from "@/interfaces/IData";
-import Title from "../components/Title";
-import IEvents from '../../interfaces/IEvents';
-import EventItem from "../components/EventItem";
-import Link from "next/link";
-import FilterEvents from "../components/FilterEvents";
 import Events from "../components/Events";
 
 export default async function HomePage() {
