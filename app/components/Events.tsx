@@ -88,7 +88,6 @@ const Events: React.FC<IEventsComponent> = ({ data }) => {
       ? filteredEvents // No filter, all events
       : filteredEvents.filter((event) => event.city && event.city.trim() === selectedCity);
 
-    console.log(filteredCityEvents);
     setPastEvents(filteredCityEvents);
   };
 
