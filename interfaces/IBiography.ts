@@ -1,6 +1,7 @@
 export default interface IBiography {
   sheetId: string;
   pageTitle?: string;
+  active: '1' | '0' | '';
   fileName: string;
   driveId?: string;
   imgAlt: string;
