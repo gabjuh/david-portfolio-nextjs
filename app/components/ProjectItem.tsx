@@ -22,7 +22,7 @@ const friendlyFileName = convertStringToUrlFriendly(fileName ?? '');
       <h3 className="text-2xl text-center lg:text-left font-semibold">{title}</h3>
       <div className={`${!mediaType ? '' : 'flex flex-col lg:flex-row'} mt-2 mb-28`}>
         <div className="w-full lg:w-1/2 flex justify-center mt-2.5">
-          {mediaType === 'image' && driveId && fileName &&
+          {(mediaType === 'image' || mediaType === '') && driveId && fileName &&
             <div className="lg:w-[300px] w-[450px] mr-0 lg:mr-7">
               {/* <Image src={fileName ?? ''} alt="Project Image" /> */}
               <Image 
