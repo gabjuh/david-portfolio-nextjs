@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, MouseEventHandler } from "react";
-import INav from "@/interfaces/INav";
-import NavMenuItem from "./NavMenuItem";
-import Link from "next/link";
+import Link from 'next/link';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
+
+import IMenu from '@/interfaces/IMenu';
+import INav from '@/interfaces/INav';
+
+import NavMenuItem from './NavMenuItem';
 
 const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
 
@@ -12,10 +15,15 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
 
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>('');
+  const [filteredMenu, setFilteredMenu] = useState<IMenu[]>(menu.filter(m => m.active === '1'))
 
   const handleMenuItemClick = (e: any) => {
     setSelectedMenuItem(e.target.id);
   };
+
+  useEffect(() => {
+    console.log(filteredMenu)
+  }, [])
 
   return (
     <>
@@ -27,7 +35,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
             </label>
             {/* Dropdown menu */}
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-              {menu.map((item, index) => (
+              {filteredMenu.map((item, index) => (
                 <NavMenuItem
                   key={index}
                   index={index}
@@ -52,7 +60,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
         <div className="hidden lg:flex">
           {/* Horisontal menu */}
           <ul className="menu menu-horizontal px-1">
-            {menu.map((item, index) => (
+            {filteredMenu.map((item, index) => (
               <NavMenuItem
                 key={index}
                 index={index}
