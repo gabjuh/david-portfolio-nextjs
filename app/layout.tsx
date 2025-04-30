@@ -1,10 +1,12 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google';
-import Nav from './components/Nav'
-import Footer from './components/Footer'
-import { ParallaxProvider } from 'react-scroll-parallax'
+import './globals.css';
 
+import { Roboto } from 'next/font/google';
+import { ParallaxProvider } from 'react-scroll-parallax';
+
+import Footer from './components/Footer';
+import Nav from './components/Nav';
+
+import type { Metadata } from 'next'
 const inter = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin']
@@ -36,7 +38,7 @@ export default async function RootLayout({
   return (
     // <html lang="en" data-theme="dark">
     // <ParallaxProvider>
-    <html lang="en" data-theme="corporate">
+    <html lang="de" data-theme="corporate" className="hyphens-auto">
       <body className={`${inter.className} min-h-[100vh] relative pb-[112px]`}>
         <Nav data={[
           data.menuItems,
