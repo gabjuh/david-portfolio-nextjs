@@ -1,7 +1,8 @@
-import IData from "@/interfaces/IData";
-import Link from "next/link";
-import Image from "next/image";
-import convertStringToUrlFriendly from "@/helpers/convertStringToUrlFriendly";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { getImageDataFromImageCollection } from '@/helpers/getimage';
+import IData from '@/interfaces/IData';
 
 export default async function HomePage() {
 
@@ -19,13 +20,16 @@ export default async function HomePage() {
 
   const data: IData = await getData();
 
+  const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, data.home[0].imgId);
+
   return (
     <main className={`container mx-auto px-4 py-10 w-full`}>
       <div className="mt-12">
         <Image
           className="lg:max-w-[400px] w-full mx-auto rounded-md drop-shadow-xl"
-          src={`${apiUrl}/img/${convertStringToUrlFriendly(data.biography[0].fileName)}`}
-          alt={data.biography[0].imgAlt}
+          // src={`${apiUrl}/img/${convertStringToUrlFriendly(data.biography[0].fileName)}`}
+          src={`${apiUrl}/img/${imgUrl}`}
+          alt={imgAlt}
           width={400}
           height={200}
           priority={true}

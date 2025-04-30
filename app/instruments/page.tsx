@@ -1,9 +1,12 @@
-import IData from "@/interfaces/IData";
-import Link from "next/link";
-import Image from "next/image";
-import convertStringToUrlFriendly from "@/helpers/convertStringToUrlFriendly";
-import Title from "../components/Title";
-import ImageAndText from "../components/ImageAndText";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import convertStringToUrlFriendly from '@/helpers/convertStringToUrlFriendly';
+import { getImageDataFromImageCollection } from '@/helpers/getimage';
+import IData from '@/interfaces/IData';
+
+import ImageAndText from '../components/ImageAndText';
+import Title from '../components/Title';
 
 export default async function HomePage() {
 
@@ -27,11 +30,14 @@ export default async function HomePage() {
       <Title title={data.instruments[0].pageTitle} />
 
       {data.instruments.map((item, index) => {
+
+      const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, item.imgId);
+
         return (
           <ImageAndText
             key={index}
-            fileName={item.fileName}
-            alt={item.imgAlt}
+            fileName={imgUrl}
+            alt={imgAlt}
             imageLeft={item.imgOnSide?.toLowerCase() === 'left' ? true : false}
             loaded={true}
             text={item.text}

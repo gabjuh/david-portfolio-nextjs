@@ -1,5 +1,27 @@
 # TODO
 
+## Projektek oldalt megujitani
+[ ] Van egy darab landscape image
+[ ] Mellette egy szöveg ami pond olyan magas, mint a mellete levö kep
+[ ] A szöveg alul kihalvanyodik
+[ ] Szöveg alatt van egy gomb/link: "Weiterlesen", vagy ha a bejegyzes barmelyikere kattintunk, kinyilik
+[ ] Ha egy masikra kattintunk, az elözö bezarul.
+[ ] Egy gomb is lehetne ami összecsukja a kinyitottat
+[ ] Kiprobalni, hogy milyen meretü kep hogyan viselkedik az oldalon,
+  - mekkoraban jelenik meg a szerveren
+  - mekkoraban jelenik meg a honlapon
+  - esetleg megnezni, mekkora feladat lenne konvertalni a kepeket automatikusan
+
+[ ] Rakattintunk - megnezhetjük nagyobban
+[ ] 2 doboz egymas alatt, 1 kepdoboz es egy video+kep doboz, egyforma mereteüek, 
+[ ] mindkettö legyen vegyes doboz
+[ ] image tabelle
+[ ] Konzertek melle slider
+[ ] ikon kep a 2025 ele (kb a szürke szelessegü kihagyassal egy negyzetes kep)
+[ ] slider a mult koncert vegere, rakatt megnez nagyban
+
+
+## Regiek
 [X] Beallitani a meglevö api-t, hogy onnan olvasson
   - Kapcsolot csinalni hozza, hogy könnyen lehessen allitani
 [X] A raspberry scriptjeit atnezni es letisztazni, hogy az mindenkeppen müködjön vegre.

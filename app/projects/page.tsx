@@ -1,6 +1,8 @@
-import IData from "@/interfaces/IData";
-import Title from "../components/Title";
-import ProjectItem from "../components/ProjectItem";
+import { getImageDataFromImageCollection } from '@/helpers/getimage';
+import IData from '@/interfaces/IData';
+
+import ProjectItem from '../components/ProjectItem';
+import Title from '../components/Title';
 
 export default async function HomePage() {
 
@@ -24,6 +26,9 @@ export default async function HomePage() {
       <Title title={data.projects[0].pageTitle} />
 
       {data.projects.map((item, index) => {
+
+        const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, item.imgId);
+
         if (item.active === '1') {
           return (
             <ProjectItem
@@ -32,8 +37,8 @@ export default async function HomePage() {
               mediaType={item.mediaType}
               youtubeId={item.youtubeLink}
               driveId={item.driveId}
-              fileName={item.fileName}
-              imgAlt={item.imgAlt}
+              fileName={imgUrl}
+              imgAlt={imgAlt}
               loaded={true}
               text={item.text}
             />

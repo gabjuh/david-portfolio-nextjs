@@ -5,6 +5,7 @@ export default interface IProjectItem {
   driveId?: string;
   fileName?: string;
   imgAlt?: string;
+  imgDimension?: string;
   loaded?: boolean;
   text?: string;
   // children: React.ReactNode;

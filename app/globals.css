@@ -16,3 +16,76 @@
   background-color: hsl(var(--sf) / var(--tw-bg-opacity)) !important;
   color: white !important;
 }
+
+.slick-prev,
+.slick-next {
+  width: 35px !important;
+  height: 35px !important;
+  color: #003 !important;
+  opacity: .5;
+}
+
+/* Next/Prev buttons*/
+.slick-prev::before,
+.slick-next::before {
+  display: none;
+  color: #003 !important;
+  opacity: .5;
+  font-size: 30px !important;
+}
+
+.slick-dots li {
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 5px !important;
+}
+
+/* Style the button inside the dot */
+.slick-dots li button {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Style the dot itself */
+.slick-dots li button:before {
+  font-size: 22px !important;
+  width: 20px !important;
+  height: 20px !important;
+  content: '•' !important;
+  color: #004 !important; /* Change this to your preferred color */
+  opacity: .3!important;
+}
+
+/* Style the active dot */
+.slick-dots li.slick-active button:before {
+  color: #004 !important; /* Change this to your preferred active color */
+  opacity: .6!important;
+}
+
+/* the container the slider is in */
+.slick-track {
+  height: 440px;
+}
+
+/*.slick-slide {*/
+/*  position: relative;*/
+/*}*/
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.slick-slide > div {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-list, .slick-track {
+  height: 100%;
+}

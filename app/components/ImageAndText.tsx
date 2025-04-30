@@ -1,8 +1,10 @@
-import IImageAndText from "@/interfaces/IImageAndText";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import ImageForText from "./ImageForText";
+import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+import IImageAndText from '@/interfaces/IImageAndText';
+
+import ImageForText from './ImageForText';
 import Title from './Title';
 
 const ImageAndText: React.FC<IImageAndText> = ({

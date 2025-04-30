@@ -1,9 +1,12 @@
-import IData from "@/interfaces/IData";
-import Link from "next/link";
-import Image from "next/image";
-import convertStringToUrlFriendly from "@/helpers/convertStringToUrlFriendly";
-import Title from "../components/Title";
-import ImageAndText from "../components/ImageAndText";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import convertStringToUrlFriendly from '@/helpers/convertStringToUrlFriendly';
+import { getImageDataFromImageCollection } from '@/helpers/getimage';
+import IData from '@/interfaces/IData';
+
+import ImageAndText from '../components/ImageAndText';
+import Title from '../components/Title';
 
 export default async function HomePage() {
 
@@ -20,6 +23,9 @@ export default async function HomePage() {
   }
 
   const data: IData = await getData();
+
+  const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, data.biography[0].imgId);
+  
   
   return (
     <main className={`container mx-auto px-4 py-10 w-full`}>
@@ -27,8 +33,8 @@ export default async function HomePage() {
       <Title title={data.biography[0].pageTitle} />
 
       <ImageAndText
-        fileName={data.biography[0].fileName}
-        alt={data.biography[0].imgAlt}
+        fileName={imgUrl}
+        alt={imgAlt}
         imageLeft={data.biography[0].imgOnSide === 'left' ? true : false}
         // classNameForImg="rounded-full"
         loaded={true}
