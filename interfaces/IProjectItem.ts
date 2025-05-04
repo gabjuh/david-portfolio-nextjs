@@ -6,6 +6,7 @@ export default interface IProjectItem {
   driveId?: string;
   imgUrl?: string;
   imgAlt?: string;
+  fileName?: string;
   imgId?: string;
   imgDimension?: string;
   loaded?: boolean;
