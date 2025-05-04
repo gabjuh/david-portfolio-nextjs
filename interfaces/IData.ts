@@ -25,6 +25,7 @@ export default interface IData {
   projects: IProjects[];
   // projects new !
   images: IImages[];
+  videos: IVideos[];
   sliders?: ISlider[];
   events: IEvents[];
   agb: IAgb[];

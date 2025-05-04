@@ -21,9 +21,9 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
     setSelectedMenuItem(e.target.id);
   };
 
-  useEffect(() => {
-    console.log(filteredMenu)
-  }, [])
+  // useEffect(() => {
+  //   console.log(filteredMenu)
+  // }, [])
 
   return (
     <>

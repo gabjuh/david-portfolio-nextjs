@@ -1,32 +1,30 @@
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import remarkGfm from 'remark-gfm';
+
+import convertStringToUrlFriendly from '@/helpers/convertStringToUrlFriendly';
 import IProjectItem from '@/interfaces/IProjectItem';
-import convertStringToUrlFriendly from "@/helpers/convertStringToUrlFriendly";
 
 const ProjectItem: React.FC<IProjectItem> = ({
   title,
   mediaType,
   youtubeId,
-  driveId,
-  fileName,
+  imgId,
+  imgUrl,
   loaded,
   text
 }) => {
-
-const friendlyFileName = convertStringToUrlFriendly(fileName ?? '');
 
   return (
     <>
       <h3 className="text-2xl text-center lg:text-left font-semibold">{title}</h3>
       <div className={`${!mediaType ? '' : 'flex flex-col lg:flex-row'} mt-2 mb-28`}>
         <div className="w-full lg:w-1/2 flex justify-center mt-2.5">
-          {(mediaType === 'image' || mediaType === '') && driveId && fileName &&
+          {(mediaType === 'image' || mediaType === '') && imgId &&
             <div className="lg:w-[300px] w-[450px] mr-0 lg:mr-7">
-              {/* <Image src={fileName ?? ''} alt="Project Image" /> */}
               <Image 
-                src={fileName ? `https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/${friendlyFileName}` : ''}
+                src={`https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/${imgUrl}`}
                 alt="Project Image" 
                 className="!w-[300px] mx-auto" 
                 width="200"

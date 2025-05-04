@@ -1,5 +1,7 @@
 import { getImageDataFromImageCollection } from '@/helpers/getimage';
+import { getVideoLinkFromVideoCollection } from '@/helpers/getVideo';
 import IData from '@/interfaces/IData';
+import IVideos from '@/interfaces/IVideos';
 
 import ProjectItem from '../components/ProjectItem';
 import Title from '../components/Title';
@@ -19,6 +21,8 @@ export default async function HomePage() {
   }
 
   const data: IData = await getData();
+
+  const videos: IVideos[] = data.videos;
   
   return (
     <main className={`container mx-auto px-4 py-10 w-full`}>
@@ -28,16 +32,18 @@ export default async function HomePage() {
       {data.projects.map((item, index) => {
 
         const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, item.imgId);
-
+        const youtubeId = getVideoLinkFromVideoCollection(videos, item?.videoId);
+        
         if (item.active === '1') {
           return (
             <ProjectItem
               key={index}
               title={item.projectTitle}
               mediaType={item.mediaType}
-              youtubeId={item.youtubeLink}
+              youtubeId={youtubeId}
               driveId={item.driveId}
-              fileName={imgUrl}
+              imgId={item.imgId}
+              imgUrl={imgUrl}
               imgAlt={imgAlt}
               loaded={true}
               text={item.text}
