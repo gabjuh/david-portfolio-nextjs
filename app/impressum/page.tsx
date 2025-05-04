@@ -1,11 +1,13 @@
-import { Metadata } from "next"
-import PageContainer from "../components/PageContainer";
-import Title from "../components/Title";
-import IData from "@/interfaces/IData";
-import IImpressum from "@/interfaces/IImpressum";
+import { Metadata } from 'next';
+
+import IData from '@/interfaces/IData';
+import IImpressum from '@/interfaces/IImpressum';
+
+import PageContainer from '../components/PageContainer';
+import Title from '../components/Title';
 
 export const metadata: Metadata = {
-  title: 'Impressum - Franciska Hajdu'
+  title: 'Impressum'
 }
 
 export default async function ImpressumPage() {

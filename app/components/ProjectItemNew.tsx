@@ -52,9 +52,9 @@ const ProjectItem: React.FC<IProjectItem> = ({
         <>
             <div className="flex flex-row gap-3 ">
                 <div className="w-full h-full mt-10">
-                    <MediaSlider
+                    {/* <MediaSlider
                         slides={dummySlides}
-                    ></MediaSlider>
+                    ></MediaSlider> */}
 
                     {/*<iframe width="450" height="280" src={`https://www.youtube-nocookie.com/embed/${youtubeId}`} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>*/}
 

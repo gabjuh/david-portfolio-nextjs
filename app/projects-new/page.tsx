@@ -3,6 +3,7 @@ import { getImageDataFromImageCollection } from '@/helpers/getimage';
 import IData from '@/interfaces/IData';
 import IImagesData from '@/interfaces/IImagesData';
 
+import AllImages from '../components/debug/AllImages';
 import Title from '../components/Title';
 
 export default async function HomePage() {
@@ -67,6 +68,8 @@ export default async function HomePage() {
                     );
                 }
             })}
+
+            <AllImages imagesData={imagesData}/>
 
         </main>
     )

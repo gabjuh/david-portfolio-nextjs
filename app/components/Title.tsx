@@ -1,14 +1,15 @@
-import ITitle from '@/interfaces/ITitle'
-import React from 'react'
+import React from 'react';
+
+import ITitle from '@/interfaces/ITitle';
 
 const Title: React.FC<ITitle> = ({ title, className, id }) => {
   return (
-    <div
+    <h2
       id={id ? id : 'asd'}
       className={`text-2xl font-semibold mt-5 mb-8 ${className ?? ''}`}
     >
       {title}
-    </div>
+    </h2>
   )
 }
 
