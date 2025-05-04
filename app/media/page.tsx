@@ -8,7 +8,7 @@ import PageContainer from '../components/PageContainer';
 import Title from '../components/Title';
 
 export const metadata: Metadata = {
-  title: 'Impressum'
+  title: 'Media'
 }
 
 
