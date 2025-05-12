@@ -14,7 +14,7 @@ import IInstruments from './IInstruments';
 import Menu from './IMenu';
 import IProjects from './IProjects';
 import ISettings from './ISettings';
-import ISlider from './ISlider';
+import ISliders from './ISlider';
 import IVideos from './IVideos';
 
 export default interface IData {
@@ -26,7 +26,7 @@ export default interface IData {
   // projects new !
   images: IImages[];
   videos: IVideos[];
-  sliders?: ISlider[];
+  sliders: ISliders[];
   events: IEvents[];
   agb: IAgb[];
   impressum: IImpressum[];

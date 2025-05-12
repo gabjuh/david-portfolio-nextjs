@@ -7,14 +7,18 @@ import 'swiper/css/pagination';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import type { Swiper as SwiperType } from 'swiper'
+import { getObjectFit } from '@/helpers/getObjectFit';
 
+import type { Swiper as SwiperType } from 'swiper'
 export interface ISlide {
-  type: 'image' | 'video'
-  src: string
+  type: 'image' | 'video';
+  src: string[];
+  orientation?: 'landscape' | 'portrait' | string;
+  portraitVerticalFocus?: string;
+  portraitAspect?: string;
 }
 
 interface MediaSliderProps {
@@ -25,6 +29,8 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
   const [current, setCurrent] = useState(0)
   const [fullScreen, setFullScreen] = useState(false)
   const swiperRef = useRef<SwiperType | null>(null)
+
+  const apiUrl = `https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/`;
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
@@ -53,17 +59,19 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
     <div className="w-full max-w-3xl mx-auto">
       <div
         className="relative aspect-video rounded-md overflow-hidden"
-        onMouseEnter={() => swiperRef.current?.autoplay.stop()}
-        onMouseLeave={() => {
-          if (!fullScreen) swiperRef.current?.autoplay.start()
-        }}
+        // onMouseEnter={() => swiperRef.current?.autoplay.stop()}
+        // onMouseLeave={() => {
+        //   if (!fullScreen) swiperRef.current?.autoplay.start()
+        // }}
       >
         <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Navigation, Pagination, EffectCoverflow]} //Autoplay
+          flipEffect={{ slideShadows: true, limitRotation: true }}
+          effect="coverflow"
           navigation
           pagination={{ clickable: true }}
           // autoplay={{ delay: 6000 }}
-          speed={600}
+          speed={800}
           loop
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => setCurrent(swiper.realIndex)}
@@ -72,24 +80,39 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
           {slides.map((slide, index) => (
             <SwiperSlide key={index} onClick={() => setFullScreen(true)}>
               {slide.type === 'image' ? (
-                <div className="relative w-full h-full">
+                <div className={`relative ${
+                  // slide.orientation === 'portrait' ? `aspect-[${slide.portraitAspect}]` : 'aspect-video'
+                  slide.orientation === 'portrait' ? `aspect-[0.6]` : 'aspect-video' //aspect-[0.6]
+                } rounded-md overflow-hidden`}> 
                   <Image
-                    src={slide.src}
-                    alt={`Slide ${index}`}
+                    src={apiUrl + slide.src[0]}
+                    alt={`Slide ${index + 1} ${slide.src[1]}`}
                     fill
-                    className="object-cover rounded-md"
-                    quality={80}
+                    className={`rounded-md ${
+                      slide.orientation === 'portrait'
+                        ? 'object-contain'
+                        : 'object-cover'
+                    }`}
+                    quality={100}
                     priority={index === 0}
+                    style={{
+                      // objectFit: slide.orientation === 'portrait'
+                      //   ? getObjectFit(slide.portraitAspect)
+                      //   : 'cover',
+                      objectPosition: `${slide.orientation === 'portrait' ? `center -${ 550 / 100 * Number(slide.portraitVerticalFocus)}%` : ''}`, 
+                      
+                    }}
                   />
                 </div>
               ) : (
                 <iframe
                   className="absolute inset-0 w-full h-full rounded-md"
-                  src={`https://www.youtube.com/embed/${slide.src}`}
+                  src={`https://www.youtube.com/embed/${slide.src[0]}`}
                   title={`Video ${index}`}
                   allowFullScreen
                 />
               )}
+
             </SwiperSlide>
           ))}
         </Swiper>
@@ -98,7 +121,7 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
       <AnimatePresence>
         {fullScreen && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex justify-center items-center p-4"
+            className="fixed inset-0 bg-black bg-opacity-90 z-[1501] flex justify-center items-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -110,21 +133,23 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-              className="relative w-full max-w-5xl aspect-video border-4 border-red-500"
+              className="relative w-full max-w-[90vw] max-h-[80vh] aspect-video"
               onClick={(e) => e.stopPropagation()}
             >
               {slides[current].type === 'image' ? (
                 <Image
-                  src={slides[current].src}
-                  alt={`FullSlide ${current}`}
+                  src={apiUrl + slides[current].src[0]}
+                  alt={`FullSlide ${current + 1} ${slides[current].src[1]}`}
                   fill
                   className="object-contain rounded-md"
                   quality={100}
+                  onClick={() => setFullScreen(false)}
+                  sizes="100vw"
                 />
               ) : (
                 <iframe
                   className="absolute inset-0 w-full h-full rounded-md"
-                  src={`https://www.youtube.com/embed/${slides[current].src}?autoplay=1`}
+                  src={`https://www.youtube.com/embed/${slides[current].src[0]}?autoplay=1`}
                   title={`FullVideo ${current}`}
                   allowFullScreen
                 />

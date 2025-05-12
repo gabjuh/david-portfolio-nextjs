@@ -138,7 +138,7 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
                   onClick={(e) => { e.stopPropagation(); handleCopy(image.imgId || '', image.fileName); }} 
                   className="text-[11px] bg-gray-300 rounded px-2 py-0.5 hover:bg-gray-400 transition"
                 >
-                  Copy Drive ID
+                  Copy Image ID
                 </button>
               </div>
             </div>
@@ -185,7 +185,7 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
                 onClick={() => handleCopy(modalImage.imgId || '', modalImage.fileName)} 
                 className="text-[11px] bg-primary text-white rounded px-2 py-0.5 hover:bg-gray-400 transition whitespace-nowrap"
               >
-                Copy Drive ID
+                Copy Image ID
               </button>
               <a 
                 href={`https://api-davidbudai.web4musicians.eu/img/${modalImage.fileName}`}

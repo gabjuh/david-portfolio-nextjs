@@ -1,9 +1,7 @@
-export default interface ISlider {
+export default interface ISliders {
   sheetId: string;
-  pageTitle?: string;
+  sliderId: string;
   active: '0' | '1';
-  id: number;
-  fileName: string;
-  driveId: string;
-  imgAlt: string;
+  images: string;
+  videos: string;
 }

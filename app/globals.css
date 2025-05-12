@@ -89,3 +89,8 @@
 .slick-list, .slick-track {
   height: 100%;
 }
+
+.portrait-img-wrapper img {
+  transition: transform 0.5s ease;
+  transform: scale(var(--portrait-scale, 1));
+}

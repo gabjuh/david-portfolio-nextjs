@@ -3,7 +3,9 @@ import { Metadata } from 'next';
 import IData from '@/interfaces/IData';
 import IImagesData from '@/interfaces/IImagesData';
 
+import AllSliders from '../components/AllSliders';
 import AllImages from '../components/debug/AllImages';
+import MediaSlider from '../components/MediaSlider';
 import PageContainer from '../components/PageContainer';
 import Title from '../components/Title';
 
@@ -27,24 +29,29 @@ export default async function MediaPage(){
   
     const data: IData = await getData()
 
-     async function getImageData() {
-          const res = await fetch(`${apiUrl}/images.json`,
-            { cache: 'no-store' }
-          )
-          if (!res.ok) {
-              throw new Error('Failed to fetch data')
-          }
-          return res.json()
-        }
-    
-        const imagesData: IImagesData[] = await getImageData();
+    async function getImageData() {
+      const res = await fetch(`${apiUrl}/images.json`,
+        { cache: 'no-store' }
+      )
+      if (!res.ok) {
+          throw new Error('Failed to fetch data')
+      }
+      return res.json()
+    }
+
+    const imagesData: IImagesData[] = await getImageData();
 
   return (
     <PageContainer>
       <Title title={"Media"} />
+      <h3 className="text-xl mb-7">Sliders:</h3>
+      <AllSliders 
+        data={data}
+        imagesData={imagesData}
+      />
       <h3 className="text-xl mb-7">Images:</h3>
       <AllImages imagesData={imagesData}/>
-      <h3 className="text-xl mb-7">Videos: (coming soon..)</h3>
+      {/* <h3 className="text-xl mb-7">Videos: (coming soon..)</h3> */}
      
     </PageContainer>
   )

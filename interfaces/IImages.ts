@@ -3,7 +3,10 @@ export default interface IImages {
   pageTitle?: string;
   active: '1' | '0';
   imgId: string;
+  category: string;
   fileName?: string;
-  driveId?: string;
+  portraitVerticalFocus: string;
+  portraitAspect: string;
+  driveUrl?: string;
   imgAlt?: string;
 }

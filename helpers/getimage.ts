@@ -13,6 +13,8 @@ export const getImageDataFromImageCollection = (
   return [
     item?.fileName ?? 'https://placehold.co/600x400', 
     item?.imgAlt ?? 'Alternative Bildbeschreibung fehlt',
-    dimension ?? ''
+    dimension ?? '',
+    item?.portraitVerticalFocus ?? '',
+    item?.portraitAspect ?? ''
   ];
 }
