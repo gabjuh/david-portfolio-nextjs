@@ -23,27 +23,27 @@ const ProjectItem: React.FC<IProjectItem> = ({
     const dummySlides: ISlide[] = [
         {
             type: 'image',
-            src: 'https://api-davidbudai.web4musicians.eu/img/Lyren_03-kicsi-3.jpg'
+            src: ['https://api-davidbudai.web4musicians.eu/img/Lyren_03-kicsi-3.jpg']
         },
         {
             type: 'image',
-            src: 'https://api-davidbudai.web4musicians.eu/img/Violone-1.jpg'
+            src: ['https://api-davidbudai.web4musicians.eu/img/Violone-1.jpg']
         },
         {
             type: 'image',
-            src: 'https://api-davidbudai.web4musicians.eu/img/IMG_20230601_093350_kicsi.jpg'
+            src: ['https://api-davidbudai.web4musicians.eu/img/IMG_20230601_093350_kicsi.jpg']
         },
         {
             type: 'video',
-            src: 'ScMzIvxBSi4'
+            src: ['ScMzIvxBSi4']
         },
         {
             type: 'image',
-            src: 'https://api-davidbudai.web4musicians.eu/img/Rabab-01.jpg'
+            src: ['https://api-davidbudai.web4musicians.eu/img/Rabab-01.jpg']
         },
         {
             type: 'image',
-            src: 'https://api-davidbudai.web4musicians.eu/img/Rabab-01.jpg'
+            src: ['https://api-davidbudai.web4musicians.eu/img/Rabab-01.jpg']
         },
 
     ];

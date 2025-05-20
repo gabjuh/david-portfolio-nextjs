@@ -11,6 +11,7 @@ const ProjectItem: React.FC<IProjectItem> = ({
   mediaType,
   youtubeId,
   imgId,
+  sliderId,
   imgUrl,
   loaded,
   text
@@ -35,6 +36,22 @@ const ProjectItem: React.FC<IProjectItem> = ({
           {mediaType === 'video' &&
             <>
               {youtubeId &&
+                <div className="mr-0 lg:mr-7 w-full">
+                  <div className="w-[300px] mx-auto hidden lg:block">
+                    <iframe width="300" height="170" src={`https://www.youtube-nocookie.com/embed/${youtubeId}`} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+                  </div>
+                  <div className="w-full lg:w-full lg:hidden">
+                    <div className="w-[450px] mx-auto">
+                      <iframe width="450" height="280" src={`https://www.youtube-nocookie.com/embed/${youtubeId}`} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              }
+            </>
+          }
+          {mediaType === 'slider' &&
+            <>
+              {sliderId &&
                 <div className="mr-0 lg:mr-7 w-full">
                   <div className="w-[300px] mx-auto hidden lg:block">
                     <iframe width="300" height="170" src={`https://www.youtube-nocookie.com/embed/${youtubeId}`} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>

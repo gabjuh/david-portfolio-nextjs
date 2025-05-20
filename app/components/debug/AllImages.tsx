@@ -36,6 +36,9 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
   // ESC and Arrow key handling
   useEffect(() => {
     if (!imagesData || imagesData.length === 0) return;
+
+    // Remove all inactive files:
+    // imagesData = imagesData.filter((image) => image.active !== '0');
   
     const handleKeyDown = (e: KeyboardEvent) => {
       if (modalIndex !== null) {
@@ -83,65 +86,65 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
 
       <div className="flex flex-wrap gap-4 justify-center">
         {imagesData.map((image: IImagesData, index: number) => (
-            <div 
-              key={index}
-              className={`
-                relative 
-                w-64 h-64 
-                rounded-lg 
-                overflow-hidden 
-                shadow-md 
-                bg-gray-100 
-                flex 
-                items-center 
-                justify-center 
-                group
-                hover:shadow-lg
-                transition
-                cursor-pointer
-              `}
-              onClick={() => setModalIndex(index)}
-            >
-              {/* Image */}
-              <Image 
-                className="object-cover z-0 transition-transform duration-300 group-hover:scale-105"
-                src={apiUrl + '/img/' + image.fileName} 
-                alt={image.fileName}
-                fill 
-              />
+          <div 
+            key={index}
+            className={`
+              relative 
+              w-64 h-64 
+              rounded-lg 
+              overflow-hidden 
+              shadow-md 
+              bg-gray-100 
+              flex 
+              items-center 
+              justify-center 
+              group
+              hover:shadow-lg
+              transition
+              cursor-pointer
+            `}
+            onClick={() => setModalIndex(index)}
+          >
+            {/* Image */}
+            <Image 
+              className="object-cover z-0 transition-transform duration-300 group-hover:scale-105"
+              src={apiUrl + '/img/' + image.fileName} 
+              alt={image.fileName}
+              fill 
+            />
 
-              {/* Overlay (hidden by default, shown on hover) */}
-              <div className="
-                absolute 
-                bottom-0 left-0 right-0 
-                bg-white/90 
-                px-2 py-1 
-                text-xs 
-                flex flex-col 
-                gap-1 
-                z-10 
-                opacity-0 
-                group-hover:opacity-100 
-                transition-opacity 
-                duration-300
-                text-center
-              " onClick={(e) => e.stopPropagation() /* prevent triggering modal */}>
-                <a 
-                  href={`https://api-davidbudai.web4musicians.eu/img/${image.fileName}`} 
-                  target="_blank"
-                  className="flex items-center gap-1 text-center"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {image.fileName}
-                </a>
-                <button 
-                  onClick={(e) => { e.stopPropagation(); handleCopy(image.imgId || '', image.fileName); }} 
-                  className="text-[11px] bg-gray-300 rounded px-2 py-0.5 hover:bg-gray-400 transition"
-                >
-                  Copy Image ID
-                </button>
-              </div>
+            {/* Overlay (hidden by default, shown on hover) */}
+            <div className="
+              absolute 
+              bottom-0 left-0 right-0 
+              bg-white/90 
+              px-2 py-1 
+              text-xs 
+              flex flex-col 
+              gap-1 
+              z-10 
+              opacity-0 
+              group-hover:opacity-100 
+              transition-opacity 
+              duration-300
+              text-center
+            " onClick={(e) => e.stopPropagation() /* prevent triggering modal */}>
+              <a 
+                href={`https://api-davidbudai.web4musicians.eu/img/${image.fileName}`} 
+                target="_blank"
+                className="flex items-center gap-1 text-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {image.fileName}
+              </a>
+              <button 
+                onClick={(e) => { e.stopPropagation(); handleCopy(image.imgId || '', image.fileName); }} 
+                className="text-[11px] bg-gray-300 rounded px-2 py-0.5 hover:bg-gray-400 transition"
+              >
+                Copy Image ID
+              </button>
             </div>
+          </div>
         ))}
       </div>
 

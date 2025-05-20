@@ -8,6 +8,7 @@ export default interface IProjects {
   mediaType?: 'image' | 'video';
   youtubeLink?: string;
   videoId?: string;
+  sliderId?: string;
   fileName?: string;
   driveId?: string;
   imgAlt?: string;

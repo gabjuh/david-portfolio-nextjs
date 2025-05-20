@@ -4,6 +4,7 @@ export default interface IProjectItem {
   youtubeId?: string;
   videoId?: string;
   driveId?: string;
+  sliderId?: string;
   imgUrl?: string;
   imgAlt?: string;
   fileName?: string;
