@@ -31,7 +31,7 @@ export default async function HomePage() {
 
       {data.projects.map((item, index) => {
 
-        const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, item.imgId);
+        const {src, alt} = getImageDataFromImageCollection(data, item.imgId);
         const youtubeId = getVideoLinkFromVideoCollection(videos, item?.videoId);
         
         if (item.active === '1') {
@@ -43,8 +43,8 @@ export default async function HomePage() {
               youtubeId={youtubeId}
               driveId={item.driveId}
               imgId={item.imgId}
-              imgUrl={imgUrl}
-              imgAlt={imgAlt}
+              imgUrl={src}
+              imgAlt={alt}
               loaded={true}
               text={item.text}
             />

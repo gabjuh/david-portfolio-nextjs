@@ -1,7 +1,4 @@
-import Image from 'next/image';
-import Link from 'next/link';
 
-import convertStringToUrlFriendly from '@/helpers/convertStringToUrlFriendly';
 import { getImageDataFromImageCollection } from '@/helpers/getimage';
 import IData from '@/interfaces/IData';
 
@@ -31,13 +28,13 @@ export default async function HomePage() {
 
       {data.instruments.map((item, index) => {
 
-      const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, item.imgId);
+      const {src, alt} = getImageDataFromImageCollection(data, item.imgId);
 
         return (
           <ImageAndText
             key={index}
-            fileName={imgUrl}
-            alt={imgAlt}
+            fileName={src}
+            alt={alt}
             imageLeft={item.imgOnSide?.toLowerCase() === 'left' ? true : false}
             loaded={true}
             text={item.text}
