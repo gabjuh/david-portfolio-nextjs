@@ -20,7 +20,7 @@ export default async function HomePage() {
 
   const data: IData = await getData();
 
-  const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, data.home[0].imgId);
+  const {src, alt} = getImageDataFromImageCollection(data, data.home[0].imgId);
 
   return (
     <main className={`container mx-auto px-4 py-10 w-full`}>
@@ -28,8 +28,8 @@ export default async function HomePage() {
         <Image
           className="lg:max-w-[400px] w-full mx-auto rounded-md drop-shadow-xl"
           // src={`${apiUrl}/img/${convertStringToUrlFriendly(data.biography[0].fileName)}`}
-          src={`${apiUrl}/img/${imgUrl}`}
-          alt={imgAlt}
+          src={`${apiUrl}/img/${src}`}
+          alt={alt}
           width={400}
           height={200}
           priority={true}
