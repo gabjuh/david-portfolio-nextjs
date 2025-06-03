@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect } from 'react';
+
 import IData from '@/interfaces/IData';
 import IImagesData from '@/interfaces/IImagesData';
 
@@ -14,6 +18,10 @@ const AllSliders = ({
 
   const { images = [], videos = [], sliders = [] } = data;
 
+  useEffect(() => {
+    console.log(imagesData);
+  }, [])
+
   return (
     <div className="space-y-10">
       {sliders
@@ -27,7 +35,7 @@ const AllSliders = ({
             const image = images.find(img => img.imgId === imgId && img.active === '1');
             if (image) {
               // USE imagesData here:
-              const [src, alt, orientation, portraitVerticalFocus, portraitAspect] = getImageDataFromImageCollection(data, imgId, imagesData);
+              const {src, alt, orientation, portraitVerticalFocus, portraitAspect} = getImageDataFromImageCollection(data, imgId, imagesData);
 
               slideArray.push({
                 type: 'image',

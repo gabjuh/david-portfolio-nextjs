@@ -10,7 +10,7 @@ import PageContainer from '../components/PageContainer';
 import Title from '../components/Title';
 
 export const metadata: Metadata = {
-  title: 'Media'
+  title: 'Credits'
 }
 
 
@@ -43,13 +43,7 @@ export default async function MediaPage(){
 
   return (
     <PageContainer>
-      <Title title={"Media"} />
-      <h3 className="text-xl mb-7">Sliders:</h3>
-      <AllSliders 
-        data={data}
-        imagesData={imagesData}
-      />
-      <h3 className="text-xl mb-7">Images:</h3>
+      <Title title={"Credits"} />
       <AllImages 
         data={data}
         imagesData={imagesData}
@@ -59,3 +53,4 @@ export default async function MediaPage(){
     </PageContainer>
   )
 }
+

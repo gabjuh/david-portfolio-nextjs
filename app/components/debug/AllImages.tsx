@@ -6,37 +6,35 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { toast, Toaster } from 'react-hot-toast';
 
+import { getImageDataFromImageCollection } from '@/helpers/getimage';
 import IData from '@/interfaces/IData';
 import IImagesData from '@/interfaces/IImagesData';
 
-interface ImageDataI {
+const AllImages = ({
+  data,
+  imagesData = [],
+}: {
+  data: IData;
   imagesData: IImagesData[];
-}
-
-const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
+}) => {
+  
+  const { images = [] } = data;
 
   const apiUrl = `https://${process.env.NEXT_PUBLIC_BACKEND_API}`;
 
   const [modalIndex, setModalIndex] = useState<number | null>(null);
 
-  const handleCopy = (imgId: string, fileName: string) => {
-    if (!imgId) {
-      toast.error('No Drive ID found.');
-      return;
-    }
-    navigator.clipboard.writeText(imgId).then(() => {
-      toast.success(`Copied Image ID "${imgId}" for "${fileName}"`);
-    }).catch(() => {
-      toast.error('Failed to copy!');
-    });
-  };
-
   const modalImage = modalIndex !== null ? imagesData[modalIndex] : null;
+
+  // TODO: This while filter thing should be avoid with moving the whole logic to the backend side
+  // const activeImages = imagesData.filter(slider => slider.active === '1')
 
   // ESC and Arrow key handling
   useEffect(() => {
     if (!imagesData || imagesData.length === 0) return;
+    console.log(imagesData);
 
+    
     // Remove all inactive files:
     // imagesData = imagesData.filter((image) => image.active !== '0');
   
@@ -54,7 +52,19 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
   
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [modalIndex, imagesData?.length]);
+    }, [modalIndex, imagesData?.length]);
+
+    const handleCopy = (imgId: string, fileName: string) => {
+      if (!imgId) {
+        toast.error('No Drive ID found.');
+        return;
+      }
+      navigator.clipboard.writeText(imgId).then(() => {
+        toast.success(`Copied Image ID "${imgId}" for "${fileName}"`);
+      }).catch(() => {
+        toast.error('Failed to copy!');
+      });
+    };
   
 
   return (
@@ -85,67 +95,54 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
       />
 
       <div className="flex flex-wrap gap-4 justify-center">
-        {imagesData.map((image: IImagesData, index: number) => (
-          <div 
-            key={index}
-            className={`
-              relative 
-              w-64 h-64 
-              rounded-lg 
-              overflow-hidden 
-              shadow-md 
-              bg-gray-100 
-              flex 
-              items-center 
-              justify-center 
-              group
-              hover:shadow-lg
-              transition
-              cursor-pointer
-            `}
-            onClick={() => setModalIndex(index)}
-          >
-            {/* Image */}
-            <Image 
-              className="object-cover z-0 transition-transform duration-300 group-hover:scale-105"
-              src={apiUrl + '/img/' + image.fileName} 
-              alt={image.fileName}
-              fill 
-            />
+        {imagesData.map((image: IImagesData, index: number) => {
 
-            {/* Overlay (hidden by default, shown on hover) */}
-            <div className="
-              absolute 
-              bottom-0 left-0 right-0 
-              bg-white/90 
-              px-2 py-1 
-              text-xs 
-              flex flex-col 
-              gap-1 
-              z-10 
-              opacity-0 
-              group-hover:opacity-100 
-              transition-opacity 
-              duration-300
-              text-center
-            " onClick={(e) => e.stopPropagation() /* prevent triggering modal */}>
-              <a 
-                href={`https://api-davidbudai.web4musicians.eu/img/${image.fileName}`} 
-                target="_blank"
-                className="flex items-center gap-1 text-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {image.fileName}
-              </a>
-              <button 
-                onClick={(e) => { e.stopPropagation(); handleCopy(image.imgId || '', image.fileName); }} 
-                className="text-[11px] bg-gray-300 rounded px-2 py-0.5 hover:bg-gray-400 transition"
-              >
-                Copy Image ID
-              </button>
+          const {
+            src, alt, orientation, portraitVerticalFocus, portraitAspect,
+            creditName, creditYear, creditUrl
+          } = getImageDataFromImageCollection(data, image.imgId, imagesData);
+
+          return (
+            <div
+              key={index}
+              className="relative w-64 h-64 rounded-lg overflow-hidden shadow-md bg-gray-100 flex items-center justify-center group hover:shadow-lg transition cursor-pointer"
+              onClick={() => setModalIndex(index)}
+            >
+              {/* Image */}
+              <Image
+              className="object-cover z-0 transition-transform duration-300 group-hover:scale-105"
+              src={apiUrl + '/img/' + src}
+              alt={alt}
+              fill
+              />
+
+              {/* Overlay (hidden by default, shown on hover) */}
+              {creditName &&
+                <div
+                  className="absolute bottom-0 left-0 right-0 bg-white/90 px-2 py-1 text-xs flex flex-col gap-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center"
+                  onClick={(e) => e.stopPropagation() /* prevent triggering modal */}
+                  >
+                    {creditUrl && creditUrl.length > 0 ? (
+                      <a
+                        href={creditUrl}
+                        target="_blank"
+                        className="flex items-center gap-1 text-center"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {`${creditName} ${creditYear &&`(${creditYear}) `}©`}
+                      </a>
+                    ) : (
+                      <p
+                        className="flex items-center gap-1 text-center cursor-default"
+                      >
+                        {`${creditName} ${creditYear &&`(${creditYear}) `}©`}
+                      </p>    
+                    )}
+                  </div>
+              }
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       {/* Modal */}
@@ -155,7 +152,7 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
           onClick={() => setModalIndex(null)}
         >
           <div 
-            className="relative bg-white rounded-lg max-w-full max-h-full overflow-auto p-4 pt-10 shadow-lg"
+            className="relative bg-white rounded-lg max-w-full max-h-full p-4 pt-10 shadow-lg overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <button 
@@ -169,10 +166,10 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
               alt={modalImage.fileName}
               width={800} 
               height={800} 
-              className="object-contain mx-auto max-h-[80vh] max-w-[90vw] rounded"
+              className="object-contain mx-auto max-h-[80vh] md:max-w-[90vw]  rounded"
             />
             <div className="mt-4 flex gap-2 text-sm items-start">
-              <div className="w-full text-center">
+              {/* <div className="w-full text-center">
                 <p
                   className="flex items-center gap-1 w-full"
                 >
@@ -183,8 +180,8 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
                 >
                   Image ID: <span className="">{modalImage.imgId}</span>
                 </p>
-              </div>
-              <button 
+              </div> */}
+              {/* <button 
                 onClick={() => handleCopy(modalImage.imgId || '', modalImage.fileName)} 
                 className="text-[11px] bg-primary text-white rounded px-2 py-0.5 hover:bg-gray-400 transition whitespace-nowrap"
               >
@@ -196,7 +193,7 @@ const AllImages: React.FC<ImageDataI> = ({imagesData = []}) => {
                 target="_blank"
               >
                 Open image in Google Drive <span className="absolute right-1.5 top-[-5px] text-xl">↗</span>
-              </a>
+              </a> */}
             </div>
 
             {/* Left/Right arrows */}

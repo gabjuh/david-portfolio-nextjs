@@ -2,19 +2,50 @@ import IData from '@/interfaces/IData';
 import IImages from '@/interfaces/IImages';
 import IImagesData from '@/interfaces/IImagesData';
 
-export const getImageDataFromImageCollection = (
-  data: IData, 
+interface ImagesDataJoined {
+  src: string;
+  alt: string;
+  orientation?: string;
+  portraitVerticalFocus?: string;
+  portraitAspect?: string;
+  creditName?: string,
+  creditYear?: string,
+  creditUrl?: string,
+}
+
+export function getImageDataFromImageCollection(
+  data: IData,
   imgId: string,
   imagesData?: IImagesData[]
-): string[] => {
-  const item = data.images.find((image: IImages) => image.imgId === imgId)
-  const imgData: IImagesData | undefined = imagesData?.find(images => images.imgId === imgId)
-  const dimension = imgData?.metadata.dimension;
-  return [
-    item?.fileName ?? 'https://placehold.co/600x400', 
-    item?.imgAlt ?? 'Alternative Bildbeschreibung fehlt',
-    dimension ?? '',
-    item?.portraitVerticalFocus ?? '',
-    item?.portraitAspect ?? ''
-  ];
+): ImagesDataJoined {
+  const imageItem = data.images.find((img: IImages) => img.imgId === imgId);
+
+  const metaItem = imagesData?.find((img: IImagesData) => img.imgId === imgId);
+
+  // Destructuring with default values
+  const {
+    fileName = 'https://placehold.co/600x400',
+    imgAlt = 'Alternative Bildbeschreibung fehlt',
+    portraitVerticalFocus = '',
+    portraitAspect = '',
+    creditName = '',
+    creditYear = '',
+    creditUrl = ''
+  } = imageItem || {};
+
+  // Orientation from metas
+  const orientation = metaItem?.metadata?.dimension || '';
+
+  const output = {
+    src: fileName,
+    alt: imgAlt || 'Alternative Bildbeschreibung fehlt',
+    orientation: metaItem?.metadata.dimension,
+    portraitVerticalFocus: imageItem?.portraitVerticalFocus || portraitVerticalFocus,
+    portraitAspect: imageItem?.portraitAspect || portraitAspect,
+    creditName: imageItem?.creditName || creditName,
+    creditYear: imageItem?.creditYear || creditYear,
+    creditUrl: imageItem?.creditUrl || creditUrl,
+  }
+
+  return output;
 }

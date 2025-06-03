@@ -1,6 +1,7 @@
-import ISettings from '@/interfaces/ISettings';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
+
+import ISettings from '@/interfaces/ISettings';
 
 interface IFooter {
   data: ISettings[];
@@ -23,6 +24,7 @@ const Footer: React.FC<IFooter> = ({ data, timeStamp }) => {
         <div className="text-left">
           <Link className="mx-2 block" href="impressum">Impressum</Link>
           <Link className="mx-2 block" href="agb">AGB</Link>
+          <Link className="mx-2 block" href="credits">Credits</Link>
         </div>
 
       </div>

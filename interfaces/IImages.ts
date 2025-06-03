@@ -9,4 +9,7 @@ export default interface IImages {
   portraitAspect: string;
   driveUrl?: string;
   imgAlt?: string;
+  creditName?: string;
+  creditYear?: string;
+  creditUrl?: string;
 }
