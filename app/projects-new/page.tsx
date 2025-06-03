@@ -45,7 +45,7 @@ export default async function HomePage() {
                   return;
                 }
 
-                const [imgUrl, imgAlt, imgDimension] = getImageDataFromImageCollection(
+                const {src, alt, orientation} = getImageDataFromImageCollection(
                   data, 
                   item.imgId,
                   imagesData
@@ -59,17 +59,17 @@ export default async function HomePage() {
                             mediaType={item.mediaType}
                             youtubeId={item.youtubeLink}
                             driveId={item.driveId}
-                            fileName={imgUrl}
-                            imgAlt={imgAlt}
-                            imgDimension={imgDimension}
+                            fileName={src}
+                            imgAlt={alt}
+                            imgDimension={orientation}
                             loaded={true}
                             text={item.text}
                         />
                     );
                 }
             })}
-
-            <AllImages imagesData={imagesData}/>
+            
+            <AllImages imagesData={imagesData} data={data}/>
 
         </main>
     )
