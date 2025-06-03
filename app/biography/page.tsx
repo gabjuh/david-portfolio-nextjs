@@ -1,7 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
-import convertStringToUrlFriendly from '@/helpers/convertStringToUrlFriendly';
 import { getImageDataFromImageCollection } from '@/helpers/getimage';
 import IData from '@/interfaces/IData';
 
@@ -24,7 +22,7 @@ export default async function HomePage() {
 
   const data: IData = await getData();
 
-  const [imgUrl, imgAlt] = getImageDataFromImageCollection(data, data.biography[0].imgId);
+  const {src, alt} = getImageDataFromImageCollection(data, data.biography[0].imgId);
   
   
   return (
@@ -33,8 +31,8 @@ export default async function HomePage() {
       <Title title={data.biography[0].pageTitle} />
 
       <ImageAndText
-        fileName={imgUrl}
-        alt={imgAlt}
+        fileName={src}
+        alt={alt}
         imageLeft={data.biography[0].imgOnSide === 'left' ? true : false}
         // classNameForImg="rounded-full"
         loaded={true}
