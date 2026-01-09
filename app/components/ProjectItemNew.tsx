@@ -12,6 +12,8 @@ import { IVideoDataJoined } from '@/helpers/getVideo';
 import IData from '@/interfaces/IData';
 import IProjectItem from '@/interfaces/IProjectItem';
 
+import { ISlide } from './MediaSlider';
+
 interface IProjectItemNewProps extends IProjectItem {
     data?: IData;
 }
