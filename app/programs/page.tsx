@@ -23,32 +23,20 @@ export default async function HomePage() {
   const data: IData = await getData();
 
   const videos: IVideos[] = data.videos;
-  
+
   return (
     <main className={`container mx-auto px-4 py-10 w-full`}>
-      
-      <Title title={data.projects[0].pageTitle} />
 
-      {data.projects.map((item, index) => {
+      <Title title={data.programs[0].pageTitle} />
 
-        const {src, alt} = getImageDataFromImageCollection(data, item.imgId); //orientation
+      {data.programs.map((item, index) => {
+
+        const {src, alt, orientation} = getImageDataFromImageCollection(data, item.imgId);
         const videoData = getVideoLinkFromVideoCollection(videos, item?.videoId);
         const youtubeId = videoData.youtubeLink;
 
         if (item.active === '1') {
           return (
-            // <ProjectItem
-            //   key={index}
-            //   title={item.projectTitle}
-            //   mediaType={item.mediaType}
-            //   youtubeId={youtubeId}
-            //   driveId={item.driveId}
-            //   imgId={item.imgId}
-            //   imgUrl={src}
-            //   imgAlt={alt}
-            //   loaded={true}
-            //   text={item.text}
-            // />
           <ProjectItem
             key={index}
             title={item.projectTitle}

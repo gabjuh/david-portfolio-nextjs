@@ -1,9 +1,10 @@
 import ProjectItemNew from '@/app/components/ProjectItemNew';
 import { getImageDataFromImageCollection } from '@/helpers/getimage';
+import { getVideoLinkFromVideoCollection } from '@/helpers/getVideo';
 import IData from '@/interfaces/IData';
 import IImagesData from '@/interfaces/IImagesData';
+import IVideos from '@/interfaces/IVideos';
 
-import AllImages from '../components/debug/AllImages';
 import Title from '../components/Title';
 
 export default async function HomePage() {
@@ -33,7 +34,9 @@ export default async function HomePage() {
     }
 
     const imagesData: IImagesData[] = await getImageData();
-    
+
+    const videos: IVideos[] = data.videos;
+
 
     return (
         <main className={`container mx-auto px-4 py-10 w-full`}>
@@ -41,15 +44,14 @@ export default async function HomePage() {
             <Title title={data.projects[0].pageTitle + ' NEW'}  />
 
             {data.projects.map((item, index) => {
-                if (index > 0) {
-                  return;
-                }
 
                 const {src, alt, orientation} = getImageDataFromImageCollection(
-                  data, 
+                  data,
                   item.imgId,
                   imagesData
                 );
+                const videoData = getVideoLinkFromVideoCollection(videos, item?.videoId);
+                const youtubeId = videoData.youtubeLink;
 
                 if (item.active === '1') {
                     return (
@@ -57,20 +59,20 @@ export default async function HomePage() {
                             key={index}
                             title={item.projectTitle}
                             mediaType={item.mediaType}
-                            youtubeId={item.youtubeLink}
+                            youtubeId={youtubeId}
                             driveId={item.driveId}
                             fileName={src}
                             imgAlt={alt}
                             imgDimension={orientation}
+                            sliderId={item.sliderId}
                             loaded={true}
                             text={item.text}
+                            data={data}
                         />
                     );
                 }
             })}
             
-            <AllImages imagesData={imagesData} data={data}/>
-
         </main>
     )
 }

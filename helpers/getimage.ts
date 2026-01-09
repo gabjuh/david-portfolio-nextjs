@@ -2,7 +2,7 @@ import IData from '@/interfaces/IData';
 import IImages from '@/interfaces/IImages';
 import IImagesData from '@/interfaces/IImagesData';
 
-interface ImagesDataJoined {
+export interface IImagesDataJoined {
   src: string;
   alt: string;
   orientation?: string;
@@ -17,14 +17,14 @@ export function getImageDataFromImageCollection(
   data: IData,
   imgId: string,
   imagesData?: IImagesData[]
-): ImagesDataJoined {
+): IImagesDataJoined {
   const imageItem = data.images.find((img: IImages) => img.imgId === imgId);
 
   const metaItem = imagesData?.find((img: IImagesData) => img.imgId === imgId);
 
   // Destructuring with default values
   const {
-    fileName = 'https://placehold.co/600x400',
+    fileName = '',
     imgAlt = 'Alternative Bildbeschreibung fehlt',
     portraitVerticalFocus = '',
     portraitAspect = '',

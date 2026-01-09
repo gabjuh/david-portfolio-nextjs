@@ -1,12 +1,6 @@
-import IAbout from './IAbout';
 import IAgb from './IAgb';
-import IAudio from './IAudio';
 import IBiography from './IBiography';
-import IConcerts from './IConcerts';
-import ICV from './ICV';
-import IEnsembles from './IEnsembles';
 import IEvents from './IEvents';
-import IHero from './IHero';
 import IHome from './IHome';
 import IImages from './IImages';
 import IImpressum from './IImpressum';
@@ -23,6 +17,8 @@ export default interface IData {
   biography: IBiography[];
   instruments: IInstruments[];
   projects: IProjects[];
+  programs: IProjects[];
+  TLbC: IProjects[];
   // projects new !
   images: IImages[];
   videos: IVideos[];

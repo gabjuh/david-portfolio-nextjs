@@ -27,9 +27,9 @@ export default async function HomePage() {
   return (
     <main className={`container mx-auto px-4 py-10 w-full`}>
       
-      <Title title={data.projects[0].pageTitle} />
+      <Title title={data.TLbC[0].pageTitle} />
 
-      {data.projects.map((item, index) => {
+      {data.TLbC.map((item, index) => {
 
         const {src, alt} = getImageDataFromImageCollection(data, item.imgId); //orientation
         const videoData = getVideoLinkFromVideoCollection(videos, item?.videoId);

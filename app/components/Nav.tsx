@@ -17,6 +17,16 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
   const [selectedMenuItem, setSelectedMenuItem] = useState<string>('');
   const [filteredMenu, setFilteredMenu] = useState<IMenu[]>(menu.filter(m => m.active === '1'))
 
+  // Fallback menu items if API doesn't provide them
+  const fallbackMenu: IMenu[] = [
+    { sheetId: '', id: '1', titleEn: 'Projects', titleDe: 'Projekte', titleHu: 'Projektek', link: '/projects', active: '1' },
+    { sheetId: '', id: '2', titleEn: 'Programs', titleDe: 'Programme', titleHu: 'Programok', link: '/programs', active: '1' },
+    { sheetId: '', id: '3', titleEn: 'Instruments', titleDe: 'Instrumente', titleHu: 'Hangszerek', link: '/instruments', active: '1' },
+    { sheetId: '', id: '4', titleEn: 'Events', titleDe: 'Konzerte', titleHu: 'Események', link: '/events', active: '1' }
+  ];
+
+  const displayMenu = filteredMenu.length > 0 ? filteredMenu : fallbackMenu;
+
   const handleMenuItemClick = (e: any) => {
     setSelectedMenuItem(e.target.id);
   };
@@ -35,7 +45,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
             </label>
             {/* Dropdown menu */}
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-              {filteredMenu.map((item, index) => (
+              {displayMenu.map((item, index) => (
                 <NavMenuItem
                   key={index}
                   index={index}
@@ -60,7 +70,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
         <div className="hidden lg:flex">
           {/* Horisontal menu */}
           <ul className="menu menu-horizontal px-1">
-            {filteredMenu.map((item, index) => (
+            {displayMenu.map((item, index) => (
               <NavMenuItem
                 key={index}
                 index={index}

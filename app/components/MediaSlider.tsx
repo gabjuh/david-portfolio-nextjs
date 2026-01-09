@@ -59,6 +59,7 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
     <div className="w-full max-w-3xl mx-auto">
       <div
         className="relative aspect-video rounded-md overflow-hidden"
+        style={{ height: '225px' }} // Fixed height for consistent spacing
         // onMouseEnter={() => swiperRef.current?.autoplay.stop()}
         // onMouseLeave={() => {
         //   if (!fullScreen) swiperRef.current?.autoplay.start()
@@ -69,13 +70,17 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
           flipEffect={{ slideShadows: true, limitRotation: true }}
           effect="coverflow"
           navigation
-          pagination={{ clickable: true }}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 3
+          }}
           // autoplay={{ delay: 6000 }}
           speed={800}
           loop
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => setCurrent(swiper.realIndex)}
-          className="w-full h-full"
+          className="w-full h-full [&_.swiper-pagination]:!bottom-2"
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index} onClick={() => setFullScreen(true)}>
@@ -94,13 +99,13 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
                         : 'object-cover'
                     }`}
                     quality={100}
-                    priority={index === 0}
+                    priority={index < 3}
+                    loading={index < 3 ? 'eager' : 'lazy'}
                     style={{
-                      // objectFit: slide.orientation === 'portrait'
-                      //   ? getObjectFit(slide.portraitAspect)
-                      //   : 'cover',
-                      objectPosition: `${slide.orientation === 'portrait' ? `center -${ 550 / 100 * Number(slide.portraitVerticalFocus)}%` : ''}`, 
-                      
+                      objectFit: 'cover',
+                      objectPosition: slide.portraitVerticalFocus && slide.portraitVerticalFocus !== ''
+                        ? `center ${Number(slide.portraitVerticalFocus)}%`
+                        : 'center center'
                     }}
                   />
                 </div>
