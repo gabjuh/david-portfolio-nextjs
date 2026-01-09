@@ -5,6 +5,8 @@ export default interface IVideos {
   videoId: string;
   category: string;
   youtubeLink: string;
+  youtubeId: string;
+  title: string;
   creditName: string;
   creditYear: string;
   creditUrl: string;

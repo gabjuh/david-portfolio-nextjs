@@ -4,7 +4,7 @@ export default interface IImages {
   active: '1' | '0';
   imgId: string;
   category: string;
-  fileName?: string;
+  fileName: string;
   portraitVerticalFocus: string;
   portraitAspect: string;
   driveUrl?: string;
@@ -12,4 +12,7 @@ export default interface IImages {
   creditName?: string;
   creditYear?: string;
   creditUrl?: string;
+  alt?: string;
+  orientation: string;
+
 }
