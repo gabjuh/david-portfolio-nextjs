@@ -11,13 +11,25 @@ export default async function HomePage() {
   const apiUrl = `https://${process.env.NEXT_PUBLIC_BACKEND_API}`;
 
   async function getData() {
-    const res = await fetch(`${apiUrl}/data.json`,
-      { cache: 'no-store' }
-    )
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
+    try {
+      const res = await fetch(`${apiUrl}/data.json`, {
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30000)
+      })
+      if (!res.ok) {
+        throw new Error('Failed to fetch data')
+      }
+      return res.json()
+    } catch (error) {
+      console.error('Projects page fetch failed, using fallback:', error);
+      // Return minimal fallback data with required structure
+      return {
+        projects: [{ pageTitle: 'Projects', active: '1' }],
+        videos: [],
+        images: [],
+        sliders: []
+      }
     }
-    return res.json()
   }
 
   const data: IData = await getData();
@@ -25,7 +37,7 @@ export default async function HomePage() {
   const videos: IVideos[] = data.videos;
   
   return (
-    <main className={`container mx-auto px-4 py-10 w-full`}>
+    <main className="container mx-auto px-4 lg:px-8 py-6 lg:py-10 w-full max-w-7xl">
       
       <Title title={data.projects[0].pageTitle} />
 

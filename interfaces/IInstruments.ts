@@ -8,4 +8,10 @@ export default interface IInstruments {
   imgAlt: string;
   imgOnSide: 'left' | 'right';
   text: string;
+  mediaType?: 'image' | 'video' | 'slider' | 'title' | string;
+  youtubeId?: string;
+  videoId?: string;
+  sliderId?: string;
+  driveId?: string;
+  imgDimension?: string;
 }

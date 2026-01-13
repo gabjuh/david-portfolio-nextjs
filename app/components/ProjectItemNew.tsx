@@ -91,20 +91,33 @@ const ProjectItem: React.FC<IProjectItemNewProps> = ({
           imgDimension,
         };
         console.log(projectMediaData)
-        
+
         break;
       case 'video':
-        
-        
+
+
         break;
       case 'slider':
-        
-        
+
+
         break;
-    
+
       default:
         // console.log('mediaType falsch geschrieben');
         break;
+    }
+
+    // Special layout for title media type (section headers)
+    if (mediaType === 'title') {
+        return (
+            <>
+                <div className="mb-12 lg:mb-16 mt-12 lg:mt-20">
+                    <h3 className="text-2xl md:text-3xl font-bold text-center text-primary border-b-2 border-primary pb-4 mb-8">
+                        {title}
+                    </h3>
+                </div>
+            </>
+        );
     }
 
     return (
@@ -140,12 +153,15 @@ const ProjectItem: React.FC<IProjectItemNewProps> = ({
               </div>
 
               {/* Text Section */}
-              <div className="flex-1 leading-8 lg:mt-0 mt-5 text-center lg:text-justify">
-                <h3 className="text-2xl text-center lg:text-left font-semibold mb-3">{title}</h3>
-                <div className="leading-8 lg:mt-0 mt-5 text-center lg:text-justify">
+              <div className="w-full lg:flex-1 lg:mt-0 mt-4">
+                <h3 className="text-xl md:text-2xl text-center lg:text-left font-semibold mb-3 px-4 lg:px-0">{title}</h3>
+                <div className="leading-7 md:leading-8 text-justify px-4 lg:px-0">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     children={loaded && text ? text : ''}
+                    components={{
+                      a: ({ href, children, ...props }) => <CustomLink href={href} {...props}>{children}</CustomLink>,
+                    }}
                   />
                 </div>
               </div>
@@ -153,6 +169,29 @@ const ProjectItem: React.FC<IProjectItemNewProps> = ({
 
         </>
     );
+};
+
+// Safe CustomLink component for handling external links in markdown
+const CustomLink: React.FC<{ href?: string; children: React.ReactNode; [key: string]: any }> = ({
+  href = "#",
+  children,
+  ...props
+}) => {
+  // Simple external link detection without hooks (server-safe)
+  const isExternal = href.startsWith('http') && (
+    typeof window === 'undefined' || !href.includes(window.location.hostname)
+  );
+
+  return (
+    <a
+      href={href}
+      target={isExternal ? "_blank" : "_self"}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      {...props}
+    >
+      {children}
+    </a>
+  );
 };
 
 export default ProjectItem;

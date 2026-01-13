@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { MouseEventHandler, useEffect, useState } from 'react';
 
 import IMenu from '@/interfaces/IMenu';
@@ -11,10 +12,9 @@ import NavMenuItem from './NavMenuItem';
 const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
 
   const settings = settingsArr[0];
+  const pathname = usePathname();
 
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
-
-  const [selectedMenuItem, setSelectedMenuItem] = useState<string>('');
   const [filteredMenu, setFilteredMenu] = useState<IMenu[]>(menu.filter(m => m.active === '1'))
 
   // Fallback menu items if API doesn't provide them
@@ -27,8 +27,15 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
 
   const displayMenu = filteredMenu.length > 0 ? filteredMenu : fallbackMenu;
 
+  // Function to check if a menu item is currently active based on URL
+  const isMenuItemActive = (link: string): boolean => {
+    // Handle both "/projects" and "projects" format
+    const normalizedLink = link.startsWith('/') ? link : `/${link}`;
+    return pathname === normalizedLink;
+  };
+
   const handleMenuItemClick = (e: any) => {
-    setSelectedMenuItem(e.target.id);
+    // Click handler for future use if needed
   };
 
   // useEffect(() => {
@@ -51,7 +58,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
                   index={index}
                   title={item.titleDe}
                   link={item.link}
-                  selected={selectedMenuItem === item.link}
+                  selected={isMenuItemActive(item.link)}
                   handleMenuItemClick={handleMenuItemClick}
                 />
               ))}
@@ -62,8 +69,6 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
             <Link
               href="/"
               className="btn btn-ghost normal-case text-xl"
-              onClick={() => setSelectedMenuItem('')}
-              // onClick={() => handleClick(-1)}
             >{settings.homepageTitle}</Link>
           </div>
         </div>
@@ -76,7 +81,7 @@ const Nav: React.FC<INav> = ({ data: [menu, settingsArr] }) => {
                 index={index}
                 title={item.titleDe}
                 link={item.link}
-                selected={selectedMenuItem === item.link}
+                selected={isMenuItemActive(item.link)}
                 handleMenuItemClick={handleMenuItemClick}
               />
             ))}

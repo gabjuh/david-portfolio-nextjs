@@ -24,16 +24,24 @@ export default async function RootLayout({
 }) {
 
   async function getData() {
+    const startTime = Date.now();
+    console.log('Starting API fetch...');
+
     try {
       const res = await fetch(`https://${process.env.NEXT_PUBLIC_BACKEND_API}/data.json`,
         {
           cache: 'no-store',
           next: { revalidate: 0 },
-          signal: AbortSignal.timeout(10000) // 10 second timeout
+          signal: AbortSignal.timeout(30000) // 30 second timeout
         }
       )
+
+      const duration = Date.now() - startTime;
+      console.log(`API fetch completed in ${duration}ms`);
+
       if (!res.ok) {
-        throw new Error('Failed to fetch data')
+        console.error(`API responded with status: ${res.status}`);
+        throw new Error(`Failed to fetch data: ${res.status}`)
       }
       return res.json()
     } catch (error) {

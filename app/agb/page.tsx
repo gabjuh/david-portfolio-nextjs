@@ -28,7 +28,7 @@ export default async function AgbPage() {
               <h3 className="md:text-center text-xl font-semibold underline mt-12" id="geltungsbereich">
                 {item.title}
               </h3>
-              <p className="md:text-center mt-5">
+              <p className="text-justify mt-5">
                 {item.paragraph}
               </p>
             </div>

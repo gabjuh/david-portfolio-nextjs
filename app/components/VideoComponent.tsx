@@ -25,8 +25,16 @@ const VideoComponent: React.FC<VideoComponentProps> = ({
   console.log(youtubeId)
   if (responsive) {
     return (
-      <div className={`w-[${width}px] h-[${height}px] mt-10 ${className}`}>
-        <div className="relative w-full" style={{ height: `${height}px` }}>
+      <div
+        className={`mt-4 lg:mt-10 mx-auto ${className}`}
+        style={{
+          width: `min(${width}px, 90vw)`,
+          height: `min(${height * 0.75}px, 67.5vw)`, // 4:3 aspect ratio for video
+          maxWidth: '400px',
+          maxHeight: '300px'
+        }}
+      >
+        <div className="relative w-full h-full">
           <iframe
             className="absolute inset-0 w-full h-full rounded-md"
             src={embedUrl}

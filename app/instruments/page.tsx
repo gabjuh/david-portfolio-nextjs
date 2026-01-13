@@ -1,8 +1,9 @@
 
 import { getImageDataFromImageCollection } from '@/helpers/getimage';
+import { getVideoLinkFromVideoCollection } from '@/helpers/getVideo';
 import IData from '@/interfaces/IData';
 
-import ImageAndText from '../components/ImageAndText';
+import InstrumentItem from '../components/InstrumentItem';
 import Title from '../components/Title';
 
 export default async function HomePage() {
@@ -28,16 +29,24 @@ export default async function HomePage() {
 
       {data.instruments.map((item, index) => {
 
-      const {src, alt} = getImageDataFromImageCollection(data, item.imgId);
+        if (item.active !== '1') {
+          return null;
+        }
+
+        // Get image data for legacy support when no mediaType is specified
+        const {src, alt} = getImageDataFromImageCollection(data, item.imgId);
+        // Get video data from video collection using videoId
+        const videoData = getVideoLinkFromVideoCollection(data.videos, item?.videoId);
+        const youtubeId = videoData.youtubeLink;
 
         return (
-          <ImageAndText
+          <InstrumentItem
             key={index}
-            fileName={src}
-            alt={alt}
-            imageLeft={item.imgOnSide?.toLowerCase() === 'left' ? true : false}
-            loaded={true}
-            text={item.text}
+            {...item}
+            fileName={item.fileName || src}
+            imgAlt={item.imgAlt || alt}
+            youtubeId={youtubeId || item.youtubeId}
+            data={data}
           />
         );
       })}

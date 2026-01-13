@@ -23,12 +23,20 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
   const apiUrl = `https://${process.env.NEXT_PUBLIC_BACKEND_API}/img/`;
 
   return (
-    <div className={`w-[${width}px] h-[${height}px] mt-10`}>
+    <div
+      className="mt-4 lg:mt-10 mx-auto flex items-center justify-center"
+      style={{
+        width: `min(${width}px, 90vw)`,
+        height: `min(${height}px, 90vw)`,
+        maxWidth: '400px',
+        maxHeight: '400px'
+      }}
+    >
       <Image
         src={src.startsWith('http') ? src : `${apiUrl}${src}`}
         alt={alt || `${title} - Image`}
         quality="100"
-        className={`!h-[${height}px] w-auto mx-auto rounded-md drop-shadow-xl ${className}`}
+        className={`max-w-full max-h-full object-contain rounded-md drop-shadow-xl ${className}`}
         width={width}
         height={height}
         priority={priority}

@@ -7,12 +7,11 @@ import 'swiper/css/pagination';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
+import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { getObjectFit } from '@/helpers/getObjectFit';
 
-import type { Swiper as SwiperType } from 'swiper'
+import type { Swiper as SwiperType } from 'swiper';
 export interface ISlide {
   type: 'image' | 'video';
   src: string[];
@@ -56,10 +55,9 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
   }, [fullScreen])
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="w-full h-full">
       <div
-        className="relative aspect-video rounded-md overflow-hidden"
-        style={{ height: '225px' }} // Fixed height for consistent spacing
+        className="relative w-full h-full rounded-md overflow-hidden"
         // onMouseEnter={() => swiperRef.current?.autoplay.stop()}
         // onMouseLeave={() => {
         //   if (!fullScreen) swiperRef.current?.autoplay.start()
@@ -85,10 +83,7 @@ const MediaSlider: React.FC<MediaSliderProps> = ({ slides }) => {
           {slides.map((slide, index) => (
             <SwiperSlide key={index} onClick={() => setFullScreen(true)}>
               {slide.type === 'image' ? (
-                <div className={`relative ${
-                  // slide.orientation === 'portrait' ? `aspect-[${slide.portraitAspect}]` : 'aspect-video'
-                  slide.orientation === 'portrait' ? `aspect-[0.6]` : 'aspect-video' //aspect-[0.6]
-                } rounded-md overflow-hidden`}> 
+                <div className="relative w-full h-full rounded-md overflow-hidden"> 
                   <Image
                     src={apiUrl + slide.src[0]}
                     alt={`Slide ${index + 1} ${slide.src[1]}`}

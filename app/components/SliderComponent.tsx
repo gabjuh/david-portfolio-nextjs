@@ -16,7 +16,15 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
   className = ''
 }) => {
   return (
-    <div className={`w-[${width}px] h-[${height}px] mt-10 ${className}`}>
+    <div
+      className={`mt-4 lg:mt-10 mx-auto ${className}`}
+      style={{
+        width: `min(${width}px, 90vw)`,
+        height: `min(${height}px, 90vw)`,
+        maxWidth: '400px',
+        maxHeight: '400px'
+      }}
+    >
       <MediaSlider slides={slides} />
     </div>
   );
